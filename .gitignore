@@ -26,3 +26,6 @@ pip-delete-this-directory.txt
 
 # Emacs schtuff
 *~
+
+# Unittest stuff
+.cache
