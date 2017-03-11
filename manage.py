@@ -54,7 +54,7 @@ def setup_logging(name = None):
             sys.exit(1)
         log_to_disk = True
 
-    fmt = '%(levelletter)s%(asctime)s.%(msecs).03d %(process)d %(filename)s:%(lineno)d] %(message)s'
+    fmt = '%(levelletter)s %(asctime)s.%(msecs).03d %(process)d %(filename)s:%(lineno)d] %(message)s'
     datefmt = '%m%d %H:%M:%S'
     formatter = CustomFormatter(fmt, datefmt)
 
