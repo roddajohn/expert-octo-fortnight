@@ -12,6 +12,7 @@ lib/
 lib64/
 sdist/
 var/
+logs/
 
 # Installer log schtuff
 pip-log.txt

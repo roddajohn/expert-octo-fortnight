@@ -17,7 +17,7 @@ def get_config(config_class_string):
     config_module, config_class = config_class_string.rsplit('.', 1)
 
     config_class_object = getattr(import_module(config_module), config_class)
-    config_obj = config_class_obj()
+    config_obj = config_class_object()
 
     return config_obj
 
@@ -36,9 +36,9 @@ def create_app(config_obj):
     app.config.update(config_dict)
 
     # Setups blueprints
-    for bluepring in all_blueprints:
-        import_module(bp.import_name)
-        app.register_blueprint(bp)
+    for blueprint in all_blueprints:
+        import_module(blueprint.import_name)
+        app.register_blueprint(blueprint)
 
     # Initializes helpers (like mail, celery, etc)
     mail.init_app(app)

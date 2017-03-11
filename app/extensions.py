@@ -1,5 +1,5 @@
 """ Flask extensions and misc extensions iniatialized here """
 
-from flask.ext.mail import Mail
+from flask_mail import Mail
 
 mail = Mail()

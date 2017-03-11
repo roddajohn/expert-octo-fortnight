@@ -4,11 +4,16 @@
 
 LICENSE: TODO
 
-COMMANDS: TODO
+COMMANDS: 
+    devserver             Run the application using dev
 
-USAGE: TODO
+USAGE:
+    manage.py devserver [-p NUM] [-l DIR] [--config_prod]
 
-OPTIONS: TODO
+OPTIONS:
+    --config_prod         Load the production configurations instead of development
+    -p NUM --port=NUM     Flask will listen on this port number. default: 5000
+    -l DIR --log_dir=DIR  Log all statements to files in this directory instead of stdout.
 
 """
 
@@ -55,14 +60,14 @@ def setup_logging(name = None):
 
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(logging.ERROR if log_to_disk else logging.DEBUG)
-    console_hanlder.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
 
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
     root.addHandler(console_handler)
 
     if log_to_disk:
-        file_name = os.path.join(OPTIONS['--join_dir'], 'app_{}.log'.format(name))
+        file_name = os.path.join(OPTIONS['--log_dir'], 'app_{}.log'.format(name))
         file_handler = logging.handlers.TimedRotatingFileHandler(file_name, when='d', backupCount = 7)
         file_handler.setFormatter(formatter)
         root.addHandler(file_handler)
@@ -111,7 +116,7 @@ def command(func):
 
 @command
 def devserver():
-    setup_loggin('devserver')
+    setup_logging('devserver')
     app = create_app(parse_options())
     log_messages(app, OPTIONS['--port'])
     app.run(host = '0.0.0.0', port = int(OPTIONS['--port']))
