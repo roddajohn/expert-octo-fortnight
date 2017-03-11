@@ -1,0 +1,24 @@
+# Python schtuff
+__pycache__/
+*.py[cod]
+
+# Distribution schtuff
+.Python
+env/
+bin/
+build/
+dist/
+lib/
+lib64/
+sdist/
+var/
+
+# Installer log schtuff
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Log stuff
+*.log
+
+# Scratchpad stuff
+.scratch
