@@ -32,7 +32,7 @@ def create_app(config_obj):
 
     # Basic Flask initialization, loads the config from the config obj
     app = Flask(__name__, template_folder = TEMPLATE_FOLDER, static_folder = STATIC_FOLDER)
-    config_dict = dict([k, getattr(config_obj, k)) for k in dir(config_obj) if not k.startswith('_')])
+    config_dict = dict([(k, getattr(config_obj, k)) for k in dir(config_obj) if not k.startswith('_')])
     app.config.update(config_dict)
 
     # Setups blueprints

@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+
 """ File managing all commands to manage the expert-octo-fortnight 
 
 LICENSE: TODO
@@ -17,8 +19,8 @@ import os
 import signal
 import sys
 
-import Flask
-from flask.ext.script import Shell
+import flask
+from docopt import docopt
 
 from app.application import create_app, get_config
 
