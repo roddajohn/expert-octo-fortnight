@@ -3,3 +3,6 @@ run:
 
 clean:
 	rm -r *~
+
+test:
+	py.test --cov-report term-missing --cov app tests
