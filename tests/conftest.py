@@ -4,6 +4,11 @@ import xmlrpclib
 
 import pytest
 
+
+import os
+print os.getcwd()
+
+
 from app.application import create_app, get_config
 #from app.extensions import db
 

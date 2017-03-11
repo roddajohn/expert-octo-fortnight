@@ -15,7 +15,7 @@ def test_blueprint_instances():
     
     assert all([isinstance(bp, Blueprint) for bp in all_blueprints])
     assert len(all_blueprints) == len(set([bp.url_prefix for bp in all_blueprints if bp.url_prefix]))
-    assert all([b.import_name.starswith('app.views.') for b in all_blueprints])
+    assert all([b.import_name.startswith('app.views.') for b in all_blueprints])
 
 def test_importable():
     """ Ensures the view modules for all blueprints are able to be imported """
@@ -31,6 +31,6 @@ def test_factory():
     Ensures that the url_prefix is correct
     """
     
-    bp = _factory('home.index', '/test/123')
-    assert 'app.views.home.index' == bp.import_name
+    bp = _factory('public.controller', '/test/123')
+    assert 'app.views.public.controller' == bp.import_name
     assert '/test/123' == bp.url_prefix
