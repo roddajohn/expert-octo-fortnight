@@ -21,4 +21,4 @@ pip-delete-this-directory.txt
 *.log
 
 # Scratchpad stuff
-.scratch
+*.scratch
