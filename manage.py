@@ -39,7 +39,7 @@ def setup_logging(name = None):
     name: Appends this string to the log file filename
     """
 
-    log_to_disk = = False
+    log_to_disk = False
     if OPTIONS['--log_dir']:
         if not os.path.isdir(OPTIONS['--log_dir']):
             print('ERROR: Directory {} does not exist.'.format(OPTIONS['--log_dir']))
