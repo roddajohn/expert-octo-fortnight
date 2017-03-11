@@ -1,4 +1,4 @@
-""" Configured pytest """
+""" Configuration for pytest """
 
 import xmlrpclib
 
@@ -31,7 +31,7 @@ def alter_xmlrpc(request):
     """
 
     old_method = xmlrpclib.ServerProxy
-    xmlrpclib.ServerProxy = =FakeServerProxy
+    xmlrpclib.ServerProxy = FakeServerProxy
 
     def func(value):
         FakeServerProxy.VALUE = VALUE
@@ -43,4 +43,4 @@ def alter_xmlrpc(request):
     return func
 
 # Initialize the application and sets the app context so that we don't have to
-create_app(get_config('app.config.Testing'))).app_context().push()
+create_app(get_config('app.config.Testing')).app_context().push()

@@ -4,5 +4,5 @@ run:
 clean:
 	rm -r *~
 
-test:
+test:	
 	py.test --cov-report term-missing --cov app tests
