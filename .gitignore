@@ -20,5 +20,8 @@ pip-delete-this-directory.txt
 # Log stuff
 *.log
 
-# Scratchpad stuff
+# Scratchpad schtuff
 *.scratch
+
+# Emacs schtuff
+*~
