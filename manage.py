@@ -1,5 +1,3 @@
-#!/usr/bin/env python2.7
-
 """ File managing all commands to manage the expert-octo-fortnight 
 
 LICENSE: TODO
