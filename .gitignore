@@ -30,3 +30,6 @@ pip-delete-this-directory.txt
 # Unittest stuff
 .cache
 htmlcov/
+
+# Coverage
+.coverage
