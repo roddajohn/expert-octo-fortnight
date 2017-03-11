@@ -1,1 +1,10 @@
-a;lskdfj;alksdjf;
+Blueprints:
+
+- Public views
+- Authentication views (forgot password, forgot username, etc)
+- ARISTA member views
+- Tutee views
+- Tutoring Committee Views
+- Events Committee View
+- Communications Committee View
+- Administrators View
