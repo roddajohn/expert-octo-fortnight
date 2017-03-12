@@ -1,3 +1,5 @@
+# Make file -- look at default for explanation
+
 default:
 	@echo "Examples:"
 	@echo "    make run          # Starts a Flask development server locally"
