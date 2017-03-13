@@ -9,7 +9,13 @@ class CeleryConfig(HardCoded):
     
     # TODO
 
-class Config(CeleryConfig):
+class MongoConfig(CeleryConfig):
+    """ Mongo Configuration """
+    MONGO_HOST = 'localhost'
+    MONGO_PORT = 27017
+    MONGO_DBNAME = 'test'
+    
+class Config(MongoConfig):
     """ Flask Configuration global to all environments """
 
     DEBUG = True
