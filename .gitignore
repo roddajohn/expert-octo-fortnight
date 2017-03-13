@@ -33,3 +33,6 @@ htmlcov/
 
 # Coverage
 .coverage
+
+# Database data file
+data/

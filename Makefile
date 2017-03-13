@@ -11,6 +11,7 @@ setup:
 	. env/bin/activate
 	pip install -r requirements.txt
 	export PYTHONPATH='.'
+	mkdir data
 
 run:
 	./manage.py devserver -p 5000
@@ -20,3 +21,8 @@ clean:
 
 test:	
 	py.test --cov-report html --cov app tests
+
+mongo:
+	mongod --httpinterface --dbpath data
+
+
