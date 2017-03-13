@@ -5,6 +5,7 @@ default:
 	@echo "    make run          # Starts a Flask development server locally"
 	@echo "    make clean        # Cleans all directors"
 	@echo "    make test         # Runs unit tests"
+	@echo "    make mongo        # Starts a mongo server"
 
 setup:
 	virtualenv env
