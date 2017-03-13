@@ -24,13 +24,13 @@ def add_user(user_data):
         TODO
 
     Returns: 
-    id of user if success, 0 if failure
+    id of user is success, if a duplicate key error is thrown, id of identical object is thrown
     """
 
     try:
         user_id = mongo.db.users.insert_one(user_data).inserted_id
     except DuplicateKeyError:
-        return 0
+        user_id = mongo.db.users.find_one(user_data)['_id']
 
     return user_id
 
