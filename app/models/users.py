@@ -20,9 +20,8 @@ def add_user(user_data):
     """ Adds a user to the database
     
     user_data: dictionary of user data
-    Keys:
-        TODO
-
+    See documentation for more information
+    
     Returns: 
     id of user is success, if a duplicate key error is thrown, id of identical object is thrown
     """

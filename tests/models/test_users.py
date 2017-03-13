@@ -2,6 +2,7 @@
 
 Checks get_user(id)
 Check add_user(user_data)
+Check delete_user(id)
 """
 
 from app.models.users import get_user, add_user, delete_user
@@ -25,14 +26,22 @@ def test_add_user():
     assert not None == get_user(id_of_user)
 
 def test_get_user():
-    """ Testing the get_user function """
+    """ Testing the get_user function
+
+    Tests retreiving a user with a clearly incorrect id
+    Tests restreiving a user and confirming that the username field is correct
+    """
     id_of_user = add_user(user)
 
     assert None == get_user(0)
     assert user['username'] == get_user(id_of_user)['username']
 
 def test_delete_user():
-    """ Testing the delete_user function """
+    """ Testing the delete_user function 
+    
+    Tests deleting a user that exists
+    Tests deleting a user that does not exist
+    """
     id_of_user = add_user(user)
 
     assert delete_user(id_of_user) == 1
