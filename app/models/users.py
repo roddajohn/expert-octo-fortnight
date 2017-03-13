@@ -45,6 +45,9 @@ def delete_user(id):
     """
 
     user = get_user(id)
+    if not user:
+        return 0
+
     result = mongo.db.users.delete_one(user).deleted_count
 
     return result
