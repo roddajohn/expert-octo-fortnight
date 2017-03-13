@@ -4,4 +4,4 @@ from flask_mail import Mail
 from flask_pymongo import PyMongo
 
 mail = Mail()
-db = PyMongo()
+mongo = PyMongo()

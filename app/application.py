@@ -4,7 +4,7 @@ import os
 
 import app as app_root
 from app.blueprints import all_blueprints
-from app.extensions import mail, db
+from app.extensions import mail, mongo
 
 from flask import Flask
 
@@ -42,7 +42,7 @@ def create_app(config_obj):
 
     # Initializes helpers (like mail, celery, etc)
     mail.init_app(app)
-    db.init_app(app)
+    mongo.init_app(app)
 
     # Activates the middleware
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
