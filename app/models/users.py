@@ -1,6 +1,7 @@
 """ Manages all users in the Mongo db """
 
 from app.extensions import mongo
+from pymongo.errors import DuplicateKeyError
 
 def get_user(id):
     """ Returns a user dictionary
@@ -26,7 +27,24 @@ def add_user(user_data):
     id of user if success, 0 if failure
     """
 
-    user_id = mongo.db.users.insert_one(user_data).inserted_id
+    try:
+        user_id = mongo.db.users.insert_one(user_data).inserted_id
+    except DuplicateKeyError:
+        return 0
 
     return user_id
+
+def delete_user(id):
+    """ Deletes a user from the database
     
+    id: The id of the user to delete
+
+    Returns:
+    True if the delete was successful
+    Flase if the delete was not successful
+    """
+
+    user = get_user(id)
+    result = mongo.db.users.delete_one(user).deleted_count
+
+    return result

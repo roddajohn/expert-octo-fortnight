@@ -42,7 +42,7 @@ def create_app(config_obj):
 
     # Initializes helpers (like mail, celery, etc)
     mail.init_app(app)
-    mongo.init_app(app)
+    mongo.init_app(app, config_prefix='MONGO')
 
     # Activates the middleware
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')

@@ -23,6 +23,6 @@ test:
 	py.test --cov-report html --cov app tests
 
 mongo:
-	mongod --httpinterface --dbpath data
+	mongod --httpinterface --dbpath data --rest
 
 
