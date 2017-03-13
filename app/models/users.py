@@ -28,5 +28,5 @@ def add_user(user_data):
 
     user_id = mongo.db.users.insert_one(user_data).inserted_id
 
-    return inserted_id
+    return user_id
     
