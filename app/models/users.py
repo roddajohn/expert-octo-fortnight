@@ -40,14 +40,13 @@ def delete_user(id):
     id: The id of the user to delete
 
     Returns:
-    True if the delete was successful
-    Flase if the delete was not successful
+    Number of matched items deleted
     """
 
     user = get_user(id)
     if not user:
         return 0
 
-    result = mongo.db.users.delete_one(user).deleted_count
+    result = mongo.db.users.delete_many(user).deleted_count
 
     return result
