@@ -1,8 +1,26 @@
 """ Manages all users in the Mongo db """
 
 from app.extensions import mongo
+
 from pymongo.errors import DuplicateKeyError
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
+def set_password(id, password):
+    """ Sets the password of a user
+
+    The password is hashed using werkzeug
+
+    id: The id of the user to set the password of
+    password: The plaintext string password
+    """
+    
+    mongo.db.users.updateOne(
+        { '_id' : id },
+        { '$set': { 'password' : generate_password_hash(password) } },
+        { upsert: True }
+    )
+    
 def get_user(id):
     """ Returns a user dictionary
 
