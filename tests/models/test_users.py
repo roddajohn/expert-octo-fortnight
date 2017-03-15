@@ -56,10 +56,7 @@ def test_set_password(user):
     set_password(id_of_user, 'password')
     user = get_user(id_of_user)
 
-#    assert user['password'] == generate_password_hash('password')
     assert user['password'] is not None
-
-    set_password(get_user(0), 'password')
 
 def test_delete_user(user):
     """ Testing the delete_user function 

@@ -15,7 +15,7 @@ def set_password(id, password):
     password: The plaintext string password
     """
     
-    mongo.db.users.update(
+    return mongo.db.users.update(
         { '_id' : id },
         { '$set': { 'password' : generate_password_hash(password) } }
     )
