@@ -5,7 +5,7 @@ Check add_user(user_data)
 Check delete_user(id)
 """
 
-from app.models.users import get_user, add_user, delete_user, set_password
+from app.models.users import get_user, add_user, delete_user, set_password, check_password
 
 from bson.objectid import ObjectId
 
@@ -68,4 +68,21 @@ def test_delete_user(user):
 
     assert delete_user(id_of_user) == 1
     assert delete_user(id_of_user) == 0
+
+def test_set_password(user):
+    """ Testing the check_password function
+    
+    Tests checking a password that is correct
+    Tests checking a password that is not correct
+    Tests checking a password on an invalid id
+    """
+
+    id_of_user = add_user(user)
+    set_password(id_of_user, 'password')
+    
+    assert check_password(id_of_user, 'password') == True
+    assert check_password(id_of_user, 'this_should_fail') == False
+
+    # Create a random 24 character object id to check checking password on a user which doesn't exist
+    assert check_password(ObjectId('101010101010101010101010'), 'this_should_fail') == False
     

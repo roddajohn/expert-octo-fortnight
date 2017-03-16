@@ -33,6 +33,20 @@ def get_user(id):
 
     return user
 
+def check_password(id, password):
+    """ Checks the password of a user
+
+    Uses the werkzeug check_password_hash method
+
+    id: The id of the user to check the password against
+    password: The plaintext string password to test
+    """
+
+    user = get_user(id)
+    if not user:
+        return False
+    return check_password_hash(user['password'], password)
+
 def add_user(user_data):
     """ Adds a user to the database
     

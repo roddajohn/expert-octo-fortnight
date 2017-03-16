@@ -20,7 +20,7 @@ run:
 clean:
 	rm -r *~
 
-test:	
+test:
 	py.test --cov-report html --cov app tests
 
 mongo:
