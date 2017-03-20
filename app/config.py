@@ -1,22 +1,34 @@
+""" All configuration values for the app """
+
+from urllib import quote_plus
+
 class HardCoded(object):
     """ Constants to be used throughout the application
 
     All hard coded settings/data that are not actual/official configuration options for Flask, Celery, or their extensions goes here.
     """
 
+    _SQLALCHEMY_DATABASE_DATABASE = 'arista'
+    _SQLALCHEMY_DATABASE_HOSTNAME = 'localhost'
+    _SQLALCHEMY_DATABASE_PASSWORD = 'password'
+    _SQLALCHEMY_DATABASE_USERNAME = 'arista_website'
+
 class CeleryConfig(HardCoded):
     """ Celery Configuration """
     
     # TODO
 
-class MongoConfig(CeleryConfig):
-    """ Mongo Configuration """
+class SQLConfig(CeleryConfig):
+    """ SQL Alchemy Configuration """
     
-    MONGO_HOST = 'localhost'
-    MONGO_PORT = 27017
-    MONGO_DBNAME = 'arista'
+    SQLALCHEMY_DATABASE_URI = property(lambda self: 'mysql://{u}:{p}@{h}/{d}'.format(
+        d=quote_plus(self._SQLALCHEMY_DATABASE_DATABASE), h=quote_plus(self._SQLALCHEMY_DATABASE_HOSTNAME),
+        p=quote_plus(self._SQLALCHEMY_DATABASE_PASSWORD), u=quote_plus(self._SQLALCHEMY_DATABASE_USERNAME)
+    ))
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     
-class Config(MongoConfig):
+class Config(SQLConfig):
     """ Flask Configuration global to all environments """
 
     DEBUG = True
