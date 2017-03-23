@@ -36,8 +36,10 @@ class Config(SQLConfig):
 class Testing(Config):
     TESTING = True
 
-    _SQLALCHEMY_DATABASE_DATABASE = 'arista_testing'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 class Production(Config):
     DEBUG = False
     MAIL_SUPPRESS_SEND = False
+
+    SQLALCHMEY_TRACK_MODIFICATIONS = False

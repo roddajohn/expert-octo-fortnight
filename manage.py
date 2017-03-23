@@ -23,11 +23,15 @@ import logging.handlers
 import os
 import signal
 import sys
+import os.path
 
 import flask
 from docopt import docopt
+from migrate.versioning import api
 
 from app.application import create_app, get_config
+from app.config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO
+from app.extensions import db
 
 OPTIONS = docopt(__doc__) if __name__ == '__main__' else dict()
 
@@ -120,6 +124,16 @@ def devserver():
     app = create_app(parse_options())
     log_messages(app, OPTIONS['--port'])
     app.run(host = '0.0.0.0', port = int(OPTIONS['--port']))
+
+@command
+def createdb():
+    db.create_all()
+
+    if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
+        api.create(SQLALCHEMY_DATABASE_URI, 'database repository')
+        api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
+    else:
+        api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0))
