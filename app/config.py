@@ -1,6 +1,6 @@
 """ All configuration values for the app """
 
-from urllib import quote_plus
+import os
 
 class HardCoded(object):
     """ Constants to be used throughout the application
@@ -8,11 +8,8 @@ class HardCoded(object):
     All hard coded settings/data that are not actual/official configuration options for Flask, Celery, or their extensions goes here.
     """
 
-    _SQLALCHEMY_DATABASE_DATABASE = 'arista'
-    _SQLALCHEMY_DATABASE_HOSTNAME = 'localhost'
-    _SQLALCHEMY_DATABASE_PASSWORD = 'password'
-    _SQLALCHEMY_DATABASE_USERNAME = 'arista_website'
-
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    
 class CeleryConfig(HardCoded):
     """ Celery Configuration """
     
@@ -21,12 +18,8 @@ class CeleryConfig(HardCoded):
 class SQLConfig(CeleryConfig):
     """ SQL Alchemy Configuration """
     
-    SQLALCHEMY_DATABASE_URI = property(lambda self: 'mysql://{u}:{p}@{h}/{d}'.format(
-        d=quote_plus(self._SQLALCHEMY_DATABASE_DATABASE), h=quote_plus(self._SQLALCHEMY_DATABASE_HOSTNAME),
-        p=quote_plus(self._SQLALCHEMY_DATABASE_PASSWORD), u=quote_plus(self._SQLALCHEMY_DATABASE_USERNAME)
-    ))
-
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'data/app.db')
+    SQLALCHEMY_MIGRATE_REPO = os.path.join(HardCoded.basedir, 'migrations')
     
 class Config(SQLConfig):
     """ Flask Configuration global to all environments """
@@ -42,6 +35,8 @@ class Config(SQLConfig):
 
 class Testing(Config):
     TESTING = True
+
+    _SQLALCHEMY_DATABASE_DATABASE = 'arista_testing'
 
 class Production(Config):
     DEBUG = False
