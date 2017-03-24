@@ -2,10 +2,11 @@
 
 default:
 	@echo "Examples:"
-	@echo "    make run          # Starts a Flask development server locally"
-	@echo "    make clean        # Cleans all directors"
-	@echo "    make test         # Runs unit tests"
-	@echo "    make createdb     # Creates the SQL database"
+	@echo "    make run            # Starts a Flask development server locally"
+	@echo "    make clean          # Cleans all directors"
+	@echo "    make test           # Runs unit tests"
+	@echo "    make createdb       # Creates the SQL database"
+	@echo "    make createdb_prod  # Creates the production SQL database"
 
 setup:
 	virtualenv env
@@ -25,4 +26,8 @@ test:
 
 createdb:
 	./manage.py createdb
+
+createdb_prod:
+	./manage.py createdb --config_prod
+
 
