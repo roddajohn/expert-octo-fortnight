@@ -5,7 +5,7 @@ default:
 	@echo "    make run          # Starts a Flask development server locally"
 	@echo "    make clean        # Cleans all directors"
 	@echo "    make test         # Runs unit tests"
-	@echo "    make mongo        # Starts a mongo server"
+	@echo "    make createdb     # Creates the SQL database"
 
 setup:
 	virtualenv env
@@ -23,7 +23,6 @@ clean:
 test:
 	py.test --cov-report html --cov app tests
 
-mongo:
-	mongod --httpinterface --dbpath data --rest
-
+createdb:
+	./manage.py createdb
 

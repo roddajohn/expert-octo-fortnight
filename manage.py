@@ -27,6 +27,7 @@ import os
 import signal
 import sys
 import os.path
+import exceptions
 
 import flask
 from docopt import docopt
@@ -97,7 +98,7 @@ def parse_options():
     if OPTIONS['--config_prod']:
         config_class_string = 'app.config.Production'
     else:
-        config_class_string = 'app.config.Config'
+        config_class_string = 'app.config.Testing'
     config_obj = get_config(config_class_string)
 
     return config_obj
@@ -129,15 +130,25 @@ def devserver():
 
 @command
 def createdb():
-    db.create_all()
+    config_class = parse_options()
 
-    config_class = locate(parse_options())
+    if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
+        os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
+        
+    app = create_app(parse_options())
 
-    if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
-        api.create(config_class.SQLALCHEMY_DATABASE_URI, 'database repository')
-        api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-    else:
-        api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, api.version(config_class.SQLALCHEMY_MIGRATE_REPO))
+    try:
+        with app.app_context():
+            db.create_all()
+        if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
+            api.create(config_class.SQLALCHEMY_MIGRATE_REPO, 'database repository')
+            api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+        else:
+            api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, api.version(config_class.SQLALCHEMY_MIGRATE_REPO))
+            
+    except:
+        print 'WARNING: This database already exists'
+            
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0))
