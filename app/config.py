@@ -16,12 +16,13 @@ class CeleryConfig(HardCoded):
     # TODO
 
 class SQLConfig(CeleryConfig):
-    """ SQL Alchemy Configuration """
+    """ Default SQL Alchemy Configuration """
+
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'testing_data/app.db')
     
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'data/app.db')
-    SQLALCHEMY_DATABASE_LOCATION = os.path.join(HardCoded.basedir, 'data')
+    SQLALCHEMY_DATABASE_LOCATION = os.path.join(HardCoded.basedir, 'testing_data')
                                                 
-    SQLALCHEMY_MIGRATE_REPO = os.path.join(HardCoded.basedir, 'data/migrations')
+    SQLALCHEMY_MIGRATE_REPO = os.path.join(HardCoded.basedir, 'testing_data/migrations')
     
 class Config(SQLConfig):
     """ Flask Configuration global to all environments """
@@ -46,3 +47,9 @@ class Production(Config):
     MAIL_SUPPRESS_SEND = False
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(HardCoded.basedir, 'data/app.db')
+    SQLALCHEMY_DATABASE_LOCATION = os.path.join(HardCoded.basedir, 'data')
+                                                
+    SQLALCHEMY_MIGRATE_REPO = os.path.join(HardCoded.basedir, 'data/migrations')
+

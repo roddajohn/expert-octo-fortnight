@@ -34,5 +34,6 @@ htmlcov/
 # Coverage
 .coverage
 
-# Database data file
-data/
+# Database data files
+app/data/
+app/testing_data/
