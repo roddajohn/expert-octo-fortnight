@@ -7,10 +7,12 @@ LICENSE: TODO
 COMMANDS: 
     devserver             Run the application using dev
     createdb              Create the database
+    migratedb             Migrates and upgrads the database
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
     manage.py createdb [--config_prod]
+    manage.py migratedb [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -27,11 +29,12 @@ import os
 import signal
 import sys
 import os.path
-import exceptions
+import imp
 
 import flask
 from docopt import docopt
 from migrate.versioning import api
+from migrate.exceptions import InvalidRepositoryError
 
 from app.application import create_app, get_config
 from app.extensions import db
@@ -148,7 +151,38 @@ def createdb():
             
     except:
         print 'WARNING: This database already exists'
+
+@command
+def migratedb():
+    config_class = parse_options()
+
+    if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
+        os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
+        
+    app = create_app(parse_options())
+
+    try:
+        with app.app_context():
+            v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
             
+            migration = config_class.SQLALCHEMY_MIGRATE_REPO + ('/versions/%03d_migration.py' % (v+1))
+            
+            tmp_module = imp.new_module('old_model')
+            old_model = api.create_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+            
+            exec(old_model, tmp_module.__dict__)
+            script = api.make_update_script_for_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, tmp_module.meta, db.metadata)
+            
+            open(migration, "wt").write(script)
+            api.upgrade(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+            
+            v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+        
+            print('INFORMATION: New migration saved as ' + migration)
+            print('INFORMATION: Current database version: ' + str(v))
+    except InvalidRepositoryError:
+        print('ERROR: This database does not exist')
+        
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0))
