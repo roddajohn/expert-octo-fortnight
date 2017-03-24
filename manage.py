@@ -126,6 +126,7 @@ def command(func):
 
 @command
 def devserver():
+    """ Starts the development server """
     setup_logging('devserver')
     app = create_app(parse_options())
     log_messages(app, OPTIONS['--port'])
@@ -133,6 +134,11 @@ def devserver():
 
 @command
 def createdb():
+    """ Creates the database 
+
+    It creates the app based on the flags passed into the script, thus the correct configuration is loaded
+    """
+    
     config_class = parse_options()
 
     if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
@@ -154,6 +160,11 @@ def createdb():
 
 @command
 def migratedb():
+    """ Migrates the database 
+
+    It creates the app based on the flags passed into the script, thus the correct configuration is loaded
+    """
+    
     config_class = parse_options()
 
     if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
