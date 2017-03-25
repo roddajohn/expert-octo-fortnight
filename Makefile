@@ -23,6 +23,7 @@ clean:
 	rm -r *~
 
 test:
+	./manage.py createdb	
 	py.test --cov-report html --cov app tests
 
 createdb:
