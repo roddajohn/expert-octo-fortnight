@@ -15,7 +15,7 @@ def test_users():
     db.session.add(new_user)
     db.session.commit()
 
-    query = User.query.filter_by(fname = 'testing_fname').first()
+    query = User.query.filter_by(fname = 'testing_fname').order_by(User.id.desc()).first()
 
     assert query.id == new_user.id
 
