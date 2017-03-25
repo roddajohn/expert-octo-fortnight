@@ -191,6 +191,7 @@ def migratedb():
         
             print('INFORMATION: New migration saved as ' + migration)
             print('INFORMATION: Current database version: ' + str(v))
+            
     except InvalidRepositoryError:
         print('ERROR: This database does not exist')
         
