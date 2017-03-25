@@ -15,7 +15,6 @@ setup:
 	. env/bin/activate
 	pip install -r requirements.txt
 	export PYTHONPATH='.'
-	mkdir data
 
 run:
 	./manage.py devserver -p 5000

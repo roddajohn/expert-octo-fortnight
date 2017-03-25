@@ -34,7 +34,7 @@ import imp
 import flask
 from docopt import docopt
 from migrate.versioning import api
-from migrate.exceptions import InvalidRepositoryError
+from migrate.exceptions import InvalidRepositoryError, DatabaseAlreadyControlledError
 
 from app.application import create_app, get_config
 from app.extensions import db
@@ -149,15 +149,15 @@ def createdb():
     try:
         with app.app_context():
             db.create_all()
-        if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
-            api.create(config_class.SQLALCHEMY_MIGRATE_REPO, 'database repository')
-            api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-        else:
-            api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, api.version(config_class.SQLALCHEMY_MIGRATE_REPO))
-            
-    except:
+            if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
+                api.create(config_class.SQLALCHEMY_MIGRATE_REPO, 'database repository')
+                api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+            else:
+                api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, api.version(config_class.SQLALCHEMY_MIGRATE_REPO))
+                
+    except DatabaseAlreadyControlledError:
         print 'WARNING: This database already exists'
-
+        
 @command
 def migratedb():
     """ Migrates the database 
