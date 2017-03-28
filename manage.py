@@ -194,7 +194,6 @@ def migratedb():
             
     except InvalidRepositoryError:
         print('ERROR: This database does not exist')
-        
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0))
@@ -202,4 +201,3 @@ if __name__ == '__main__':
         print('ERROR: Port should be a number.')
         sys.exit(1)
     getattr(command, 'chosen')()
-    
