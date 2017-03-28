@@ -1,10 +1,9 @@
-"""Convenience functions which interact with SQLAlchemy models."""
+""" Convenience functions which interact with SQLAlchemy models. """
 
-from sqlalchemy import Column, func, Integer
+from sqlalchemy import Column, Integer
 from sqlalchemy.ext.declarative import declared_attr
 
 from app.extensions import db
-
 
 class Base(db.Model):
     """Convenience base DB model class. Makes sure tables in MySQL are created as InnoDB.

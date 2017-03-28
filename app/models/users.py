@@ -1,4 +1,4 @@
-""" User model """
+p""" User model """
 
 from sqlalchemy import Column, String, Text
 from werkzeug.security import generate_password_hash, check_password_hash
