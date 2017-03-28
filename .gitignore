@@ -28,7 +28,7 @@ logs/
 # Emacs schtuff
 *~
 
-# Unittest stuff
+# Unittest/coverage stuff
 .cache
 htmlcov/
 
@@ -38,3 +38,5 @@ htmlcov/
 # Database data files
 app/data/
 app/testing_data/
+*.db
+

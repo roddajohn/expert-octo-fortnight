@@ -20,7 +20,7 @@ OPTIONS:
     -l DIR --log_dir=DIR  Log all statements to files in this directory instead of stdout.
 
 """
-
+# Python imports
 from functools import wraps
 from pydoc import locate
 import logging
@@ -29,19 +29,22 @@ import os
 import signal
 import sys
 import os.path
-import imp
-
-import flask
 from docopt import docopt
+
+# Flask and database imports
+import flask
 from migrate.versioning import api
 from migrate.exceptions import InvalidRepositoryError, DatabaseAlreadyControlledError
+import imp
 
+# Application imports
 from app.application import create_app, get_config
 from app.extensions import db
 
 OPTIONS = docopt(__doc__) if __name__ == '__main__' else dict()
 
 class CustomFormatter(logging.Formatter):
+    """ Adds the custom formatter for logging (the character at the beginning of the log) """
     LEVEL_MAP = {logging.FATAL: 'F', logging.ERROR: 'E', logging.WARN: 'W', logging.INFO: 'I', logging.DEBUG: 'D'}
 
     def format(self, record):
@@ -49,7 +52,7 @@ class CustomFormatter(logging.Formatter):
         return super(CustomFormatter, self).format(record)
 
 def setup_logging(name = None):
-    """ Google-Style logging (no idea what this means)
+    """ Google-Style logging (no idea what this means -- Rodda)
 
     name: Appends this string to the log file filename
     """
@@ -196,7 +199,8 @@ def migratedb():
         print('ERROR: This database does not exist')
 
 if __name__ == '__main__':
-    signal.signal(signal.SIGINT, lambda *_: sys.exit(0))
+    signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely
+    
     if OPTIONS['--port'] and not OPTIONS['--port'].isdigit():
         print('ERROR: Port should be a number.')
         sys.exit(1)
