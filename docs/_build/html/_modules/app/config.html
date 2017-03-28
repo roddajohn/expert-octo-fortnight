@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app.config &#8212; expert-octo-fortnight 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for app.config</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; All configuration values for the app &quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="HardCoded"><a class="viewcode-back" href="../../source/app.html#app.config.HardCoded">[docs]</a><span class="k">class</span> <span class="nc">HardCoded</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Constants to be used throughout the application</span>
+
+<span class="sd">    All hard coded settings/data that are not actual/official configuration options for Flask, Celery, or their extensions goes here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">basedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span></div>
+    
+<div class="viewcode-block" id="CeleryConfig"><a class="viewcode-back" href="../../source/app.html#app.config.CeleryConfig">[docs]</a><span class="k">class</span> <span class="nc">CeleryConfig</span><span class="p">(</span><span class="n">HardCoded</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Celery Configuration &quot;&quot;&quot;</span></div>
+    
+    <span class="c1"># TODO</span>
+
+<div class="viewcode-block" id="SQLConfig"><a class="viewcode-back" href="../../source/app.html#app.config.SQLConfig">[docs]</a><span class="k">class</span> <span class="nc">SQLConfig</span><span class="p">(</span><span class="n">CeleryConfig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Default SQL Alchemy Configuration &quot;&quot;&quot;</span>
+
+    <span class="n">SQLALCHEMY_DATABASE_URI</span> <span class="o">=</span> <span class="s1">&#39;sqlite:///&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HardCoded</span><span class="o">.</span><span class="n">basedir</span><span class="p">,</span> <span class="s1">&#39;testing_data/app.db&#39;</span><span class="p">)</span>
+    
+    <span class="n">SQLALCHEMY_DATABASE_LOCATION</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HardCoded</span><span class="o">.</span><span class="n">basedir</span><span class="p">,</span> <span class="s1">&#39;testing_data&#39;</span><span class="p">)</span>
+                                                
+    <span class="n">SQLALCHEMY_MIGRATE_REPO</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HardCoded</span><span class="o">.</span><span class="n">basedir</span><span class="p">,</span> <span class="s1">&#39;testing_data/migrations&#39;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../source/app.html#app.config.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">SQLConfig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Flask Configuration global to all environments &quot;&quot;&quot;</span>
+
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">TESTING</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s1">&#39;This is a very very secret key&#39;</span>
+
+    <span class="c1"># TODO</span>
+    <span class="n">MAIL_SERVER</span> <span class="o">=</span> <span class="s1">&#39;smtp.localhost.test&#39;</span>
+    <span class="n">MAIL_DEFAULT_SENDER</span> <span class="o">=</span> <span class="s1">&#39;admin@demo.test&#39;</span>
+    <span class="n">MAIL_SUPPRESS_SEND</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Testing"><a class="viewcode-back" href="../../source/app.html#app.config.Testing">[docs]</a><span class="k">class</span> <span class="nc">Testing</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
+    <span class="n">TESTING</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">MAIL_SUPPRESS_SEND</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">SQLALCHEMY_TRACK_MODIFICATIONS</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Production"><a class="viewcode-back" href="../../source/app.html#app.config.Production">[docs]</a><span class="k">class</span> <span class="nc">Production</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">MAIL_SUPPRESS_SEND</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">SQLALCHEMY_TRACK_MODIFICATIONS</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">SQLALCHEMY_DATABASE_URI</span> <span class="o">=</span> <span class="s1">&#39;sqlite:///&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HardCoded</span><span class="o">.</span><span class="n">basedir</span><span class="p">,</span> <span class="s1">&#39;data/app.db&#39;</span><span class="p">)</span>
+    <span class="n">SQLALCHEMY_DATABASE_LOCATION</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HardCoded</span><span class="o">.</span><span class="n">basedir</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+                                                
+    <span class="n">SQLALCHEMY_MIGRATE_REPO</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HardCoded</span><span class="o">.</span><span class="n">basedir</span><span class="p">,</span> <span class="s1">&#39;data/migrations&#39;</span><span class="p">)</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Rodda John.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

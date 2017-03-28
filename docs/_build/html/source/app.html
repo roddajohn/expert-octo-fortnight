@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app package &#8212; expert-octo-fortnight 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="app-package">
+<h1>app package<a class="headerlink" href="#app-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="app.models.html">app.models package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html#module-app.models.helpers">app.models.helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html#module-app.models.users">app.models.users module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.models.html#module-app.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.views.html">app.views package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.views.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.views.auth.html">app.views.auth package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.views.auth.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.views.auth.html#module-app.views.auth.controller">app.views.auth.controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.views.auth.html#module-app.views.auth">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.views.public.html">app.views.public package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.views.public.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.views.public.html#module-app.views.public.controller">app.views.public.controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.views.public.html#module-app.views.public">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.views.html#module-app.views">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.application">
+<span id="app-application-module"></span><h2>app.application module<a class="headerlink" href="#module-app.application" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.application.create_app">
+<code class="descclassname">app.application.</code><code class="descname">create_app</code><span class="sig-paren">(</span><em>config_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/application.html#create_app"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.application.create_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flask application factory.  Inializes and returns the Flask application.</p>
+<p>This is where blueprints are registered.</p>
+<p>Returns:
+The initialized Flask application.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.application.get_config">
+<code class="descclassname">app.application.</code><code class="descname">get_config</code><span class="sig-paren">(</span><em>config_class_string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/app/application.html#get_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.application.get_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the Flask config from a class</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.blueprints">
+<span id="app-blueprints-module"></span><h2>app.blueprints module<a class="headerlink" href="#module-app.blueprints" title="Permalink to this headline">¶</a></h2>
+<p>All Flask blueprints are defined here</p>
+</div>
+<div class="section" id="module-app.config">
+<span id="app-config-module"></span><h2>app.config module<a class="headerlink" href="#module-app.config" title="Permalink to this headline">¶</a></h2>
+<p>All configuration values for the app</p>
+<dl class="class">
+<dt id="app.config.CeleryConfig">
+<em class="property">class </em><code class="descclassname">app.config.</code><code class="descname">CeleryConfig</code><a class="reference internal" href="../_modules/app/config.html#CeleryConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.config.CeleryConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.config.HardCoded" title="app.config.HardCoded"><code class="xref py py-class docutils literal"><span class="pre">app.config.HardCoded</span></code></a></p>
+<p>Celery Configuration</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="app.config.Config">
+<em class="property">class </em><code class="descclassname">app.config.</code><code class="descname">Config</code><a class="reference internal" href="../_modules/app/config.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.config.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.config.SQLConfig" title="app.config.SQLConfig"><code class="xref py py-class docutils literal"><span class="pre">app.config.SQLConfig</span></code></a></p>
+<p>Flask Configuration global to all environments</p>
+<dl class="attribute">
+<dt id="app.config.Config.DEBUG">
+<code class="descname">DEBUG</code><em class="property"> = True</em><a class="headerlink" href="#app.config.Config.DEBUG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Config.MAIL_DEFAULT_SENDER">
+<code class="descname">MAIL_DEFAULT_SENDER</code><em class="property"> = 'admin&#64;demo.test'</em><a class="headerlink" href="#app.config.Config.MAIL_DEFAULT_SENDER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Config.MAIL_SERVER">
+<code class="descname">MAIL_SERVER</code><em class="property"> = 'smtp.localhost.test'</em><a class="headerlink" href="#app.config.Config.MAIL_SERVER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Config.MAIL_SUPPRESS_SEND">
+<code class="descname">MAIL_SUPPRESS_SEND</code><em class="property"> = True</em><a class="headerlink" href="#app.config.Config.MAIL_SUPPRESS_SEND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Config.SECRET_KEY">
+<code class="descname">SECRET_KEY</code><em class="property"> = 'This is a very very secret key'</em><a class="headerlink" href="#app.config.Config.SECRET_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Config.TESTING">
+<code class="descname">TESTING</code><em class="property"> = False</em><a class="headerlink" href="#app.config.Config.TESTING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.config.HardCoded">
+<em class="property">class </em><code class="descclassname">app.config.</code><code class="descname">HardCoded</code><a class="reference internal" href="../_modules/app/config.html#HardCoded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.config.HardCoded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Constants to be used throughout the application</p>
+<p>All hard coded settings/data that are not actual/official configuration options for Flask, Celery, or their extensions goes here.</p>
+<dl class="attribute">
+<dt id="app.config.HardCoded.basedir">
+<code class="descname">basedir</code><em class="property"> = '/Users/rodda/expert-octo-fortnight/app'</em><a class="headerlink" href="#app.config.HardCoded.basedir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.config.Production">
+<em class="property">class </em><code class="descclassname">app.config.</code><code class="descname">Production</code><a class="reference internal" href="../_modules/app/config.html#Production"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.config.Production" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.config.Config" title="app.config.Config"><code class="xref py py-class docutils literal"><span class="pre">app.config.Config</span></code></a></p>
+<dl class="attribute">
+<dt id="app.config.Production.DEBUG">
+<code class="descname">DEBUG</code><em class="property"> = False</em><a class="headerlink" href="#app.config.Production.DEBUG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Production.MAIL_SUPPRESS_SEND">
+<code class="descname">MAIL_SUPPRESS_SEND</code><em class="property"> = False</em><a class="headerlink" href="#app.config.Production.MAIL_SUPPRESS_SEND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Production.SQLALCHEMY_DATABASE_LOCATION">
+<code class="descname">SQLALCHEMY_DATABASE_LOCATION</code><em class="property"> = '/Users/rodda/expert-octo-fortnight/app/data'</em><a class="headerlink" href="#app.config.Production.SQLALCHEMY_DATABASE_LOCATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Production.SQLALCHEMY_DATABASE_URI">
+<code class="descname">SQLALCHEMY_DATABASE_URI</code><em class="property"> = 'sqlite:////Users/rodda/expert-octo-fortnight/app/data/app.db'</em><a class="headerlink" href="#app.config.Production.SQLALCHEMY_DATABASE_URI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Production.SQLALCHEMY_MIGRATE_REPO">
+<code class="descname">SQLALCHEMY_MIGRATE_REPO</code><em class="property"> = '/Users/rodda/expert-octo-fortnight/app/data/migrations'</em><a class="headerlink" href="#app.config.Production.SQLALCHEMY_MIGRATE_REPO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Production.SQLALCHEMY_TRACK_MODIFICATIONS">
+<code class="descname">SQLALCHEMY_TRACK_MODIFICATIONS</code><em class="property"> = False</em><a class="headerlink" href="#app.config.Production.SQLALCHEMY_TRACK_MODIFICATIONS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.config.SQLConfig">
+<em class="property">class </em><code class="descclassname">app.config.</code><code class="descname">SQLConfig</code><a class="reference internal" href="../_modules/app/config.html#SQLConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.config.SQLConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.config.CeleryConfig" title="app.config.CeleryConfig"><code class="xref py py-class docutils literal"><span class="pre">app.config.CeleryConfig</span></code></a></p>
+<p>Default SQL Alchemy Configuration</p>
+<dl class="attribute">
+<dt id="app.config.SQLConfig.SQLALCHEMY_DATABASE_LOCATION">
+<code class="descname">SQLALCHEMY_DATABASE_LOCATION</code><em class="property"> = '/Users/rodda/expert-octo-fortnight/app/testing_data'</em><a class="headerlink" href="#app.config.SQLConfig.SQLALCHEMY_DATABASE_LOCATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.SQLConfig.SQLALCHEMY_DATABASE_URI">
+<code class="descname">SQLALCHEMY_DATABASE_URI</code><em class="property"> = 'sqlite:////Users/rodda/expert-octo-fortnight/app/testing_data/app.db'</em><a class="headerlink" href="#app.config.SQLConfig.SQLALCHEMY_DATABASE_URI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.SQLConfig.SQLALCHEMY_MIGRATE_REPO">
+<code class="descname">SQLALCHEMY_MIGRATE_REPO</code><em class="property"> = '/Users/rodda/expert-octo-fortnight/app/testing_data/migrations'</em><a class="headerlink" href="#app.config.SQLConfig.SQLALCHEMY_MIGRATE_REPO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.config.Testing">
+<em class="property">class </em><code class="descclassname">app.config.</code><code class="descname">Testing</code><a class="reference internal" href="../_modules/app/config.html#Testing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.config.Testing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.config.Config" title="app.config.Config"><code class="xref py py-class docutils literal"><span class="pre">app.config.Config</span></code></a></p>
+<dl class="attribute">
+<dt id="app.config.Testing.MAIL_SUPPRESS_SEND">
+<code class="descname">MAIL_SUPPRESS_SEND</code><em class="property"> = True</em><a class="headerlink" href="#app.config.Testing.MAIL_SUPPRESS_SEND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Testing.SQLALCHEMY_TRACK_MODIFICATIONS">
+<code class="descname">SQLALCHEMY_TRACK_MODIFICATIONS</code><em class="property"> = True</em><a class="headerlink" href="#app.config.Testing.SQLALCHEMY_TRACK_MODIFICATIONS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="app.config.Testing.TESTING">
+<code class="descname">TESTING</code><em class="property"> = True</em><a class="headerlink" href="#app.config.Testing.TESTING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.extensions">
+<span id="app-extensions-module"></span><h2>app.extensions module<a class="headerlink" href="#module-app.extensions" title="Permalink to this headline">¶</a></h2>
+<p>Flask extensions and misc extensions iniatialized here</p>
+</div>
+<div class="section" id="module-app.middleware">
+<span id="app-middleware-module"></span><h2>app.middleware module<a class="headerlink" href="#module-app.middleware" title="Permalink to this headline">¶</a></h2>
+<p>Template filters, error handlers, etc; other general middleware</p>
+</div>
+<div class="section" id="module-app">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">app package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.application">app.application module</a></li>
+<li><a class="reference internal" href="#module-app.blueprints">app.blueprints module</a></li>
+<li><a class="reference internal" href="#module-app.config">app.config module</a></li>
+<li><a class="reference internal" href="#module-app.extensions">app.extensions module</a></li>
+<li><a class="reference internal" href="#module-app.middleware">app.middleware module</a></li>
+<li><a class="reference internal" href="#module-app">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/source/app.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Rodda John.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/source/app.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
