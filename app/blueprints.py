@@ -1,4 +1,4 @@
-""" All Flask blueprints are defined here """
+""" All Flask blueprints are defined here. """
 
 from flask import Blueprint
 
@@ -19,8 +19,10 @@ def _factory(partial_module_string, url_prefix):
 
     return blueprint
 
+# The blueprints -- each is instantiated using the _facory() method
 auth_mod = _factory('auth.controller', '/auth')
 public_mod = _factory('public.controller', '/')
 
 all_blueprints = (auth_mod, public_mod)
+""" List of all blueprints (all have been instantiated through _factory()) """
     
