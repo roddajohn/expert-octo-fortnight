@@ -8,8 +8,7 @@ from app.extensions import db
 class Base(db.Model):
     """Convenience base DB model class. Makes sure tables in MySQL are created as InnoDB.
 
-    This is to enforce foreign key constraints (MyISAM doesn't support constraints) outside of production. Tables are
-    also named to avoid collisions.
+    This is to enforce foreign key constraints (MyISAM doesn't support constraints) outside of production. Tables are also named to avoid collisions.
     """
 
     @declared_attr
@@ -20,3 +19,4 @@ class Base(db.Model):
     __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
     
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=True)
+    """ Primary key for SQL Alchemy models. """
