@@ -4,9 +4,9 @@ python:
   - 2.7
 
 install:
-  make setup
-  ./manage.py createdb
-
+  -make setup
+  -./manage.py createdb
+  
 script:
   make test
 
