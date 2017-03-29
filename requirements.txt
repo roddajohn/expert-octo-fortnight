@@ -8,3 +8,4 @@ python-coveralls>=2.9.0
 flask-sqlalchemy>=2.2
 mysql-python>=1.2.5
 sqlalchemy-migrate>=0.11.0
+sphinx_rtd_theme>=0.2.4
