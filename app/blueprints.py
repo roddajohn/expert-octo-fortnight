@@ -24,5 +24,5 @@ auth_mod = _factory('auth.controller', '/auth')
 public_mod = _factory('public.controller', '/')
 
 all_blueprints = (auth_mod, public_mod)
-""" List of all blueprints (all have been instantiated through _factory()) """
+""" List of all blueprints (all have been instantiated through the factory function) """
     
