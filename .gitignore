@@ -40,3 +40,6 @@ app/data/
 app/testing_data/
 *.db
 
+# Documentation stuff
+docs/_build/*
+
