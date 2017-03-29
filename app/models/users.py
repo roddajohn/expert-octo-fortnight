@@ -15,9 +15,21 @@ class User(Base):
     password = Column(String(128), unique = False, nullable = True)
 
     def set_password(self, pwd):
+        """ Sets the password for a user
+
+        Uses the werkzeug hash method
+
+        pwd: The password to hash """
+        
         self.password = generate_password_hash(pwd)
         db.session.commit()
 
     def check_password(self, pwd):
+        """ Checks a password
+
+        Uses the werkzeug check password method
+
+        pwd: The password to test """
+        
         return check_password_hash(self.password, pwd)
         
