@@ -54,6 +54,5 @@ def create_app(config_obj):
     with app.app_context():
         import_module('app.middleware')
 
-
     # Returns the app instance
     return app
