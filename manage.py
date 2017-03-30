@@ -8,11 +8,13 @@ COMMANDS:
     devserver             Run the application using dev
     createdb              Create the database
     migratedb             Migrates and upgrads the database
+    shell                 Starts a python shell in app context
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
     manage.py createdb [--config_prod]
     manage.py migratedb [--config_prod]
+    manage.py shell [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -33,6 +35,7 @@ from docopt import docopt
 
 # Flask and database imports
 import flask
+from flask_script import Shell
 from migrate.versioning import api
 from migrate.exceptions import InvalidRepositoryError, DatabaseAlreadyControlledError
 import imp
@@ -197,6 +200,13 @@ def migratedb():
             
     except InvalidRepositoryError:
         print('ERROR: This database does not exist')
+
+@command
+def shell():
+    setup_logging('shell')
+    app = create_app(parse_options())
+    app.app_context().push()
+    Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely

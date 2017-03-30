@@ -5,9 +5,9 @@ from sqlalchemy.ext.declarative import declared_attr, declarative_base
 
 from app.extensions import db
 
-b = declarative_base()
+#b = declarative_base()
 
-class Base(b):
+class Base(db.Model):
     """Convenience base DB model class. Makes sure tables in MySQL are created as InnoDB.
 
     This is to enforce foreign key constraints (MyISAM doesn't support constraints) outside of production. Tables are also named to avoid collisions.
