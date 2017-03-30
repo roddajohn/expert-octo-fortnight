@@ -3,8 +3,10 @@
 Currently just Role """
 
 from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 
 from app.models.helpers import Base
+from app.extensions import db
 
 class Role(Base):
     """ Role base to store a user's role """
@@ -17,10 +19,9 @@ class Role(Base):
      - 'admin'
     """
 
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('users_user.id'))
     """ Column storing the ForeignKey for the user """
-    
-    user = relationship('User', back_populates = 'roles')
-    """ Relationship Column creating the many-to-one relationship """
 
+    #    user = relationship('User', back_populates = 'roles')
+    """ Relationship Column creating the many-to-one relationship """
     

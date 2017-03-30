@@ -35,6 +35,8 @@ def test_password():
     new_user = User(fname = 'testing_fname', lname = 'testing_lname')
     
     new_user.set_password('test')
+
+    print new_user.__tablename__
     
     assert new_user.password is not None
     assert new_user.check_password('test')

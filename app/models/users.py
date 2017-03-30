@@ -1,9 +1,11 @@
 """ Definition of the User model.  """
 
 from sqlalchemy import Column, String, Text
+from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.models.helpers import Base
+from app.models.permissions import Role
 from app.extensions import db
 
 class User(Base):
@@ -18,7 +20,8 @@ class User(Base):
     password = Column(String(128), unique = False, nullable = True)
     """ Column to store hashed password. """
 
-    roles = relationship('Role', back_populates = 'user')
+    roles = relationship('Role')
+    #    roles = relationship('Role', back_populates = 'user')
     """ Relationship Column creating the one-to-many relationship """
 
     def set_password(self, pwd):
