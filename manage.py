@@ -40,9 +40,15 @@ from migrate.versioning import api
 from migrate.exceptions import InvalidRepositoryError, DatabaseAlreadyControlledError
 import imp
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
 # Application imports
 from app.application import create_app, get_config
 from app.extensions import db
+
+from app.models.helpers import b
 
 OPTIONS = docopt(__doc__) if __name__ == '__main__' else dict()
 
@@ -154,7 +160,16 @@ def createdb():
 
     try:
         with app.app_context():
-            db.create_all()
+            engine = create_engine(config_class.SQLALCHEMY_DATABASE_URI, convert_unicode=True)
+            db_session = scoped_session(sessionmaker(autocommit=False,
+                                                     autoflush=False,
+                                                     bind=engine))
+            b.query = db_session.query_property()
+
+            import app.models
+
+            b.metadata.create_all(bind = engine)
+            #db.create_all()
             if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
                 api.create(config_class.SQLALCHEMY_MIGRATE_REPO, 'database repository')
                 api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
