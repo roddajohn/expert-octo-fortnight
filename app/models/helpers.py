@@ -1,11 +1,13 @@
 """ Convenience functions which interact with SQLAlchemy models. """
 
 from sqlalchemy import Column, Integer
-from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.ext.declarative import declared_attr, declarative_base
 
 from app.extensions import db
 
-class Base(db.Model):
+b = declarative_base()
+
+class Base(b):
     """Convenience base DB model class. Makes sure tables in MySQL are created as InnoDB.
 
     This is to enforce foreign key constraints (MyISAM doesn't support constraints) outside of production. Tables are also named to avoid collisions.

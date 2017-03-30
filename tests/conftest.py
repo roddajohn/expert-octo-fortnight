@@ -23,7 +23,7 @@ class FakeServerProxy(object):
 @pytest.fixture(autouse=True, scope='session')
 def create_all():
     """ Initializes and creates the database """
-    
+
     db.create_all()
 
 @pytest.fixture(scope = 'session')

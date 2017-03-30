@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.models.helpers import Base
-from app.models.permissions import Role
 from app.extensions import db
 
 class User(Base):
