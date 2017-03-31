@@ -8,6 +8,10 @@ Welcome to expert-octo-fortnight's documentation!
 
 .. toctree::
    :maxdepth: 2
+	      
+   source/app.rst
+   source/app.views.rst
+   source/app.models.rst
 
 
 Indices and tables
@@ -16,3 +20,11 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Introduction
+=================
+
+.. note::
+   This is a work in progress -- nothing is final yet, please contact Rodda John with any questions or issues.
+
+Check out Github for the installation guide.
