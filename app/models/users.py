@@ -19,7 +19,7 @@ class User(Base):
     password = Column(String(128), unique = False, nullable = True)
     """ Column to store hashed password. """
 
-    #roles = relationship('Role')
+    roles = relationship('Role', backref = 'user')
     """ Relationship Column creating the one-to-many relationship """
 
     def set_password(self, pwd):

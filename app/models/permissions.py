@@ -19,7 +19,7 @@ class Role(Base):
      - 'admin'
     """
 
-    #user_id = Column(Integer, ForeignKey('users_user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'))
     """ Column storing the ForeignKey for the user """
 
     #    user = relationship('User', back_populates = 'roles')
