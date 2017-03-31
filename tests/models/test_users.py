@@ -56,3 +56,13 @@ def test_role_checking():
 
     assert u.check_role(r.role)
     assert not u.check_role('')
+
+def test_role_adding():
+    """ Tests the add_role method """
+
+    u = create_test_user()
+    u.add_role('test')
+
+    assert u.check_role('test')
+    assert not u.check_role('')
+

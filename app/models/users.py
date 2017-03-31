@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.models.helpers import Base
+from app.models.permissions import Role
 from app.extensions import db
 
 class User(Base):
@@ -45,6 +46,16 @@ class User(Base):
         """
         
         return check_password_hash(self.password, pwd)
+
+    def add_role(self, role):
+        """ Adds the role to the user
+
+        :param role: The role to add.
+        :type role: str
+        """
+
+        self.roles.append(Role(role = role))
+        db.session.commit()
 
     def check_role(self, role):
         """ Checks the role for a user.
