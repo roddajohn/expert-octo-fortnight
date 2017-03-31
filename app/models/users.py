@@ -40,8 +40,22 @@ class User(Base):
         Uses the werkzeug check password method.
 
         :param pwd: The password to check.
-        :type pwd: str.
+        :type pwd: str
         :returns: bool -- true if the password is valid, false if otherwise.
         """
         
         return check_password_hash(self.password, pwd)
+
+    def check_role(self, role):
+        """ Checks the role for a user.
+
+        :param role: The role to check.
+        :type role: str
+        :returns: bool -- true if the user has the role, false if otherwise
+        """
+        
+        for r in self.roles:
+            if r.role == role:
+                return True
+        return False
+            

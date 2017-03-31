@@ -161,15 +161,6 @@ def createdb():
 
     try:
         with app.app_context():
-            """engine = create_engine(config_class.SQLALCHEMY_DATABASE_URI, convert_unicode=True)
-            db_session = scoped_session(sessionmaker(autocommit=False,
-                                                     autoflush=False,
-                                                     bind=engine))
-            b.query = db_session.query_property()
-
-            import app.models
-
-            b.metadata.create_all(bind = engine)"""
             db.create_all()
             if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
                 api.create(config_class.SQLALCHEMY_MIGRATE_REPO, 'database repository')

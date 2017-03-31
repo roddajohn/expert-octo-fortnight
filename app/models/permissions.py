@@ -20,8 +20,4 @@ class Role(Base):
     """
 
     user_id = Column(Integer, ForeignKey('user.id'))
-    """ Column storing the ForeignKey for the user """
-
-    #    user = relationship('User', back_populates = 'roles')
-    """ Relationship Column creating the many-to-one relationship """
-    
+    """ Column storing the ForeignKey for the user """    

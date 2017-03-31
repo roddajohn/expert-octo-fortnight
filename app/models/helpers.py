@@ -5,8 +5,6 @@ from sqlalchemy.ext.declarative import declared_attr, declarative_base
 
 from app.extensions import db
 
-#b = declarative_base()
-
 class Base(db.Model):
     """Convenience base DB model class. Makes sure tables in MySQL are created as InnoDB.
 
