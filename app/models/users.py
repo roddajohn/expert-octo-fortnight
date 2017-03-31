@@ -57,6 +57,27 @@ class User(Base):
         self.roles.append(Role(role = role))
         db.session.commit()
 
+    def remove_role(self, role):
+        """ Removes the role from the user
+
+        Returns true if the user had the role and successfully deleted it.
+        Returns false if the user doesn't have the role.
+
+        :param role: The role to remove.
+        :type role: str
+        :returns: bool - true if the role was successfully deleted, false if the user didn't have the role
+        """
+        deleted = False
+
+        for r in self.roles:
+            if r.role == role:
+                db.session.delete(r)
+                deleted = True
+                
+        db.session.commit()
+
+        return deleted
+
     def check_role(self, role):
         """ Checks the role for a user.
 

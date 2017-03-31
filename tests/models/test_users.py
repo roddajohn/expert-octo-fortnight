@@ -66,3 +66,19 @@ def test_role_adding():
     assert u.check_role('test')
     assert not u.check_role('')
 
+def test_role_removing():
+    """ Tese the remove_role method """
+
+    u = create_test_user()
+    db.session.add(u)
+    db.session.commit()
+    
+    u.add_role('test')
+
+    assert u.remove_role('test')
+    assert not u.remove_role('test')
+    assert not u.remove_role('')
+
+    db.session.delete(u)
+    db.session.commit()
+
