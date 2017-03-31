@@ -12,6 +12,14 @@ app.models.helpers module
     :undoc-members:
     :show-inheritance:
 
+app.models.permissions module
+-----------------------------
+
+.. automodule:: app.models.permissions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 app.models.users module
 -----------------------
 
