@@ -209,7 +209,7 @@ def migratedb():
             api.upgrade(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
             
             v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-        
+
             print('INFORMATION: New migration saved as ' + migration)
             print('INFORMATION: Current database version: ' + str(v))
             
