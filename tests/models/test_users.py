@@ -3,10 +3,13 @@
 Tests creating a user
 Tests all fields for a user
 Tests simple querying
+Tests password setting and checking
+Tests role setting and checking
 """
 
 from app.extensions import db
 from app.models.users import User
+from tests.models.helpers import create_test_user, create_test_role
 
 def test_users():
     """ Basic User tests
@@ -14,12 +17,12 @@ def test_users():
     Tests basic creation and saving of a user object, as well as basic querying 
     """
     
-    new_user = User(fname = 'testing_fname', lname = 'testing_lname')
+    new_user = create_test_user()
 
     db.session.add(new_user)
     db.session.commit()
 
-    query = db.session.query(User).filter_by(fname = 'testing_fname').order_by(User.id.desc()).first()
+    query = db.session.query(User).filter_by(fname = 'testing').order_by(User.id.desc()).first()
 
     assert query.id == new_user.id
 
@@ -32,12 +35,24 @@ def test_password():
     No need to actually save this user to the database as this simply tests class methods
     """
 
-    new_user = User(fname = 'testing_fname', lname = 'testing_lname')
+    new_user = create_test_user()
     
     new_user.set_password('test')
-
-    print new_user.__tablename__
     
     assert new_user.password is not None
     assert new_user.check_password('test')
     assert not new_user.check_password('TEST')
+
+def test_role_checking():
+    """ Basic role check test
+    
+    Checks the check_role function
+    """
+
+    u = create_test_user()
+    r = create_test_role()
+
+    u.roles.append(r)
+
+    assert u.check_role(r.role)
+    assert not u.check_role('')
