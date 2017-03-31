@@ -10,9 +10,6 @@ Welcome to expert-octo-fortnight's documentation!
    :maxdepth: 2
 	      
    source/app.rst
-   source/app.views.rst
-   source/app.models.rst
-
 
 Indices and tables
 ==================
