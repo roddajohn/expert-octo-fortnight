@@ -11,6 +11,13 @@ from app.extensions import db
 class User(Base):
     """ User model for use with sqlalchemy. """
 
+    def __repr__(self):
+        """ __repr__ definition for the User model
+
+        Should display as (for user with id 1): <User ID: 1>
+        """
+        return "<User ID: %d>" % self.id
+
     fname = Column(String(64), unique = False, nullable = False)
     """ Column to store first name. """
     
