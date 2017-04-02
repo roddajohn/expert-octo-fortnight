@@ -89,5 +89,5 @@ def test_repr():
     db.session.add(u)
     db.session.commit()
 
-    #assert str(u) == '<
+    assert str(u) == '<User ID: %d>' % u.id
 
