@@ -20,4 +20,11 @@ class Role(Base):
     """
 
     user_id = Column(Integer, ForeignKey('user.id'))
-    """ Column storing the ForeignKey for the user """    
+    """ Column storing the ForeignKey for the user """
+
+    def __repr__(self):
+        """ __repr__ definition for the Role model
+
+        Should display as (for the role with id 1): <Role ID: 1>
+        """
+        return '<Role ID: %d>' % self.id
