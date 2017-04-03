@@ -1,4 +1,5 @@
 from app.blueprints import auth_mod
+from app.core.authentication import load_user
 
 from flask import g
 
