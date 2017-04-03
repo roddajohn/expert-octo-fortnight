@@ -25,5 +25,3 @@ def load_user():
         user = User.query.filter_by(id = session['id'])
 
     g.user = user
-        
-        
