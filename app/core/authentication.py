@@ -1,4 +1,4 @@
-""" File managing decorators managing who is logged in and not, as well as permission handling """
+""" File managing decorators managing who is logged in and not, as well as permission handling as well as functions decorated with before_app_request """
 
 from flask import g
 from flask import session
@@ -16,7 +16,7 @@ import functools
 def load_user():
     """ Loads the user from the session into the g variable 
 
-    Runs before any request is passed to the appropriate view route using the flask before_request decorator
+    Runs before any request is passed to the appropriate view route using the flask before_app_request decorator
 
     If session does not contain id, sets g.user to None
     """
@@ -29,8 +29,11 @@ def load_user():
     g.user = user
 
 def require_login(f):
-    """ Authentication decorator
+    """ require_login(f)
+    Authentication decorator
 
+    :param f: The original view route, or, more generally, the method (perhaps another decorator), that will eventually return something for flask to display.
+    :type f: function
     :returns: A rendered page to display, either through the view route that it is decorating, or a page with a flashed message.
 
     If user is logged in run the route
@@ -47,8 +50,11 @@ def require_login(f):
 
 @require_login
 def require_role(f, role):
-    """ Authentication decorator
-    
+    """ require_role(f, role)
+    Authentication decorator
+
+    :param f: The original view route, or, more generally, the method (perhaps another decorator), that will eventually return something for flask to display.
+    :type f: function    
     :param role: The role to check
     :type role: str
     :returns: A rendered page to display, either through the view route that it is decorating, or a page with a flashed message.
