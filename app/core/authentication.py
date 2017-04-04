@@ -42,7 +42,7 @@ def require_login(f):
     """
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
-        if not g:
+        if not g.user:
             flash('You are not logged in')
             return redirect('index')
         return f(*args, **kwargs)
@@ -65,7 +65,7 @@ def require_role(f, role):
     """
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
-        if not g.check_role(role):
+        if not g.user.check_role(role):
             flash('You do not have the required role')
             return redirect('index')
         return f(*args, **kwargs)
