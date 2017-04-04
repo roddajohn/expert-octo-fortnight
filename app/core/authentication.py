@@ -24,7 +24,7 @@ def load_user():
     user = None
     
     if 'id' in session:
-        user = User.query.filter_by(id = session['id'])
+        user = User.query.filter_by(id = session['id']).first()
 
     g.user = user
 
