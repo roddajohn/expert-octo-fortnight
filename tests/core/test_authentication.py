@@ -74,6 +74,7 @@ def test_load_user():
     db.session.add(user)
     db.session.commit()
 
+    
     with app.test_request_context(''):
         session['id'] = user.id # This is how the load_user method loads the user
         
