@@ -70,6 +70,7 @@ def test_load_user():
 
     user = create_test_user()
     
+
     db.session.add(user)
     db.session.commit()
 
