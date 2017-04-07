@@ -53,7 +53,7 @@ def require_role(f, role):
     Authentication decorator
 
     :param f: The original view route, or, more generally, the method (perhaps another decorator), that will eventually return something for flask to display.
-    :type f: function    
+    :type f: function
     :param role: The role to check
     :type role: str
     :returns: A rendered page to display, either through the view route that it is decorating, or a page with a flashed message.
