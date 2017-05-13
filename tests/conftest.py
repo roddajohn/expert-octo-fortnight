@@ -4,13 +4,12 @@ import xmlrpclib
 
 import pytest
 
-
 import os
 print os.getcwd()
 
-
 from app.application import create_app, get_config
-#from app.extensions import db
+
+from app.extensions import db
 
 class FakeServerProxy(object):
     VALUE = None
@@ -21,12 +20,11 @@ class FakeServerProxy(object):
     def search(self, _):
         return self.VALUE
 
-"""
 @pytest.fixture(autouse=True, scope='session')
 def create_all():
-    \""" Initializes and creates the database \"""
+    """ Initializes and creates the database """
+
     db.create_all()
-"""
 
 @pytest.fixture(scope = 'session')
 def alter_xmlrpc(request):
@@ -47,5 +45,7 @@ def alter_xmlrpc(request):
 
     return func
 
+app = create_app(get_config('app.config.Testing'))
+
 # Initialize the application and sets the app context so that we don't have to
-create_app(get_config('app.config.Testing')).app_context().push()
+app.app_context().push()

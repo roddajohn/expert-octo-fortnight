@@ -3,9 +3,14 @@ language: python
 python:
   - 2.7
 
-install: make setup
+install:
+  make setup
 
+before_script:
+  ./manage.py createdb
+  
 script:
   make test
 
-after_success: coveralls -i
+after_success:
+  coveralls -i
