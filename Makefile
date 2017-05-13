@@ -8,8 +8,6 @@ setup:
 	virtualenv env
 	. env/bin/activate
 	pip install -r requirements.txt
-	export PYTHONPATH='.'
-	echo $PYTHONPATH
 
 run:
 	./manage.py devserver -p 5000
