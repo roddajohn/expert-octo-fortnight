@@ -18,6 +18,11 @@ class User(Base):
         """
         return "<User ID: %d>" % self.id
 
+    __tablename__ = 'user'
+    """
+    Sets the tablename to not be users_role and instead just be user
+    """
+
     fname = Column(String(64), unique = False, nullable = False)
     """ Column to store first name. """
     
@@ -29,8 +34,6 @@ class User(Base):
 
     roles = relationship('Role', backref = 'user')
     """ Relationship Column creating the one-to-many relationship """
-
-    
 
     def set_password(self, pwd):
         """ Sets the password for a user.

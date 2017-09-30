@@ -11,6 +11,11 @@ from app.extensions import db
 class Role(Base):
     """ Role base to store a user's role """
 
+    __tablename__ = 'role'
+    """
+    Sets the tablename to not be permissions_role and instead be just role
+    """
+
     role = Column(String(64), unique = False, nullable = False)
     """ Column to store the role, as a string.
 
