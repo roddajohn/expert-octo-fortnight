@@ -18,11 +18,6 @@ class Role(Base):
         """
         return '<Role ID: %d>' % self.id
 
-    __tablename__ = 'role'
-    """
-    Sets the tablename to not be permissions_role and instead be just role
-    """
-
     role = Column(String(64), unique = False, nullable = False)
     """ Column to store the role, as a string.
 
