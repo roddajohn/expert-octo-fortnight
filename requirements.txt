@@ -10,3 +10,4 @@ mysql-python>=1.2.5
 sqlalchemy-migrate>=0.11.0
 sphinx_rtd_theme>=0.2.4
 flask-script>=2.0.5
+sphinx>=1.6.4
