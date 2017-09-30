@@ -11,6 +11,13 @@ from app.extensions import db
 class Role(Base):
     """ Role base to store a user's role """
 
+    def __repr__(self):
+        """ __repr__ definition for the Role model
+        
+        Should display as (for role with id 1): <Role ID: 1>
+        """
+        return "<Role ID: %d" % self.id 
+
     __tablename__ = 'role'
     """
     Sets the tablename to not be permissions_role and instead be just role
