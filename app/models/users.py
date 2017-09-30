@@ -30,6 +30,8 @@ class User(Base):
     roles = relationship('Role', backref = 'user')
     """ Relationship Column creating the one-to-many relationship """
 
+    
+
     def set_password(self, pwd):
         """ Sets the password for a user.
 
