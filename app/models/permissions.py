@@ -11,13 +11,9 @@ from app.extensions import db
 class Role(Base):
     """ Role base to store a user's role """
 
-    def __repr__(self):
-        """ __repr__ definition for the Role model
-
-        Should display as (for the role with id 1): <Role ID: 1>
-        """
-        return '<Role ID: %d>' % self.id
-
+    __name__ = 'Role'
+    """ Name of the class (for the benefit of the __repr__ method) """
+    
     role = Column(String(64), unique = False, nullable = False)
     """ Column to store the role, as a string.
 

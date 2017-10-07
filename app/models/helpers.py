@@ -13,7 +13,12 @@ class Base(db.Model):
 
     @declared_attr
     def __tablename__(self):
+        """ Declaring a tablename to be the classname lowercase for all models """
         return '{}'.format(self.__name__.lower())
+
+    def __repr__(self):
+        """ __repr__ definition for all models """
+        return '<{} ID: {}>'.format(self.__name__, str(self.id))
 
     __abstract__ = True
     __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')

@@ -1,6 +1,6 @@
 """ Definition of the User model.  """
 
-from sqlalchemy import Column, String, Text
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -11,13 +11,9 @@ from app.extensions import db
 class User(Base):
     """ User model for use with sqlalchemy. """
 
-    def __repr__(self):
-        """ __repr__ definition for the User model
-
-        Should display as (for user with id 1): <User ID: 1>
-        """
-        return "<User ID: %d>" % self.id
-
+    __name__ = 'User'
+    """ Name of the class (for the benefit of the __repr__ method) """
+    
     fname = Column(String(64), unique = False, nullable = False)
     """ Column to store first name. """
     
