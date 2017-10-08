@@ -21,9 +21,10 @@ def create_test_role():
 def create_test_user():
     """ Creates and returns a testing user 
     
-    :returns: app.models.user.User the created user object
+    :returns: app.models.users.User the created user object
     """
 
     u = User(fname = 'testing', lname = 'blah')
 
     return u
+

@@ -13,16 +13,16 @@ class User(Base):
 
     __name__ = 'User'
     """ Name of the class (for the benefit of the __repr__ method) """
-    
+
     fname = Column(String(64), unique = False, nullable = False)
     """ Column to store first name. """
-    
+
     lname = Column(String(64), unique = False, nullable = False)
     """ Column to store last name. """
 
     password = Column(String(128), unique = False, nullable = True)
     """ Column to store hashed password. """
-
+    
     roles = relationship('Role', backref = 'user')
     """ Relationship Column creating the one-to-many relationship """
 

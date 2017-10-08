@@ -1,6 +1,6 @@
 """ Convenience functions which interact with SQLAlchemy models. """
 
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declared_attr, declarative_base
 
 from app.extensions import db
@@ -22,6 +22,6 @@ class Base(db.Model):
 
     __abstract__ = True
     __table_args__ = dict(mysql_charset='utf8', mysql_engine='InnoDB')
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=True)
     """ Primary key for SQL Alchemy models. """
