@@ -1,6 +1,6 @@
 """ Definition of the User model.  """
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -14,6 +14,10 @@ class User(Base):
     __name__ = 'User'
     """ Name of the class (for the benefit of the __repr__ method) """
 
+    """
+    ------------------------------ General Information ------------------------------
+    """
+
     fname = Column(String(64), unique = False, nullable = False)
     """ Column to store first name. """
 
@@ -22,9 +26,23 @@ class User(Base):
 
     password = Column(String(128), unique = False, nullable = True)
     """ Column to store hashed password. """
+
+    email = Column(String(128), unique = True, nullable = True)
+    """ Column to store an email address """
     
     roles = relationship('Role', backref = 'user')
     """ Relationship Column creating the one-to-many relationship """
+
+    """
+    ------------------------------ Student Information ------------------------------
+    """
+    
+    osis = Column(Integer, unique = True, nullable = True)
+    """ Column to store OSIS for a student """
+
+    """
+    ----------------------------------- Methods ------------------------------------
+    """
 
     def set_password(self, pwd):
         """ Sets the password for a user.
