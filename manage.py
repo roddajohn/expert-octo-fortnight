@@ -47,7 +47,7 @@ from sqlalchemy.ext.declarative import declarative_base
 # Updated
 # Application imports
 from app.application import create_app, get_config
-from app.extensions import db
+from app.extensions import mongo
 import app.models
 
 #from app.models.helpers import b

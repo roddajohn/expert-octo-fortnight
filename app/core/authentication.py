@@ -4,9 +4,6 @@ from flask import g, session, flash, redirect
 
 import logging
 
-from app.models.permissions import Role
-from app.models.users import User
-
 from app.blueprints import auth_mod
 
 import functools
@@ -22,9 +19,6 @@ def load_user():
     
     user = None
     
-    if 'id' in session:
-        user = User.query.filter_by(id = session['id']).first()
-
     g.user = user
 
 def require_login(f):
