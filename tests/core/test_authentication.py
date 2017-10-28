@@ -2,12 +2,6 @@
 
 import pytest
 
-from flask import g, session
-
-from tests.conftest import app
-
-from app.core.authentication import load_user, require_login, require_role
-
 def test_require_login():
     """ Tests the require_login decorator """
     assert True

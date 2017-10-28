@@ -2,6 +2,8 @@
 
 from app.models.required_data import RequiredData
 
+import pytest
+
 def test_insert():
     new = RequiredData('testing_data',
                        'TESTING_DATA',
