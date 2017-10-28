@@ -64,7 +64,7 @@ class RequiredData():
         return mongo.db.required_data.delete_one({'_id': self._id})
 
     def update(self):
-        return mongo.db.required_data.update_one({'_id': self._id}, self.__dict__)
+        return mongo.db.required_data.update_one({'_id': self._id}, {'$set': self.__dict__})
 
     def insert(self):
         to_insert = self.__dict__

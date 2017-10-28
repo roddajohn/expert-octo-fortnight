@@ -19,6 +19,20 @@ def test_insert():
     assert returned.acknowledged
     assert returned.inserted_id > -1
 
+def test_query_id_name():
+    obj_id = RequiredData.query_name('testing_data')._id
+
+    assert RequiredData.query_id(obj_id).name == 'testing_data'
+
+def test_update():
+    obj = RequiredData.query_name('testing_data')
+
+    obj.required = False
+    obj.update()
+
+    obj = RequiredData.query_name('testing_data')
+    assert not obj.required
+
 def test_remove():
     r = RequiredData.query_name('testing_data')
 
