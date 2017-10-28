@@ -6,14 +6,10 @@ LICENSE: TODO
 
 COMMANDS: 
     devserver             Run the application using dev
-    createdb              Create the database
-    migratedb             Migrates and upgrads the database
     shell                 Starts a python shell in app context
 
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
-    manage.py createdb [--config_prod]
-    manage.py migratedb [--config_prod]
     manage.py shell [--config_prod]
 
 OPTIONS:
@@ -112,10 +108,11 @@ def parse_options():
     Config instance to pass into create_app()
     """
     
-    if OPTIONS['--config_prod']:
+    if OPTIONS and OPTIONS['--config_prod']:
         config_class_string = 'app.config.Production'
     else:
         config_class_string = 'app.config.Testing'
+        
     config_obj = get_config(config_class_string)
 
     return config_obj
@@ -145,69 +142,6 @@ def devserver():
     app = create_app(parse_options())
     log_messages(app, OPTIONS['--port'])
     app.run(host = '0.0.0.0', port = int(OPTIONS['--port']))
-
-@command
-def createdb():
-    """ Creates the database 
-
-    It creates the app based on the flags passed into the script, thus the correct configuration is loaded
-    """
-    
-    config_class = parse_options()
-
-    if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
-        os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
-        
-    app = create_app(parse_options())
-
-    try:
-        with app.app_context():
-            db.create_all()
-            if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
-                api.create(config_class.SQLALCHEMY_MIGRATE_REPO, 'database repository')
-                api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-            else:
-                api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, api.version(config_class.SQLALCHEMY_MIGRATE_REPO))
-                
-    except DatabaseAlreadyControlledError:
-        print 'WARNING: This database already exists'
-        
-@command
-def migratedb():
-    """ Migrates the database 
-
-    It creates the app based on the flags passed into the script, thus the correct configuration is loaded
-    """
-    
-    config_class = parse_options()
-
-    if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
-        os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
-        
-    app = create_app(parse_options())
-
-    try:
-        with app.app_context():
-            v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-            
-            migration = config_class.SQLALCHEMY_MIGRATE_REPO + ('/versions/%03d_migration.py' % (v+1))
-            
-            tmp_module = imp.new_module('old_model')
-            old_model = api.create_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-            
-            exec(old_model, tmp_module.__dict__)
-            script = api.make_update_script_for_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, tmp_module.meta, db.metadata)
-            
-            open(migration, "wt").write(script)
-            api.upgrade(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-            
-            v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
-
-            print('INFORMATION: New migration saved as ' + migration)
-            print('INFORMATION: Current database version: ' + str(v))
-            
-    except InvalidRepositoryError:
-        print('ERROR: This database does not exist')
 
 @command
 def shell():
