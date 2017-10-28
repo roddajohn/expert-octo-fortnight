@@ -60,6 +60,27 @@ class RequiredData():
 
         return RequiredData.generate_object_from_document(from_db)
 
+    @staticmethod
+    def get_all(permission):
+        to_return = []
+
+        for obj in mongo.db.required_data.find():
+            if permission in obj['permissions_applicable']:
+                to_return.append(RequiredData.generate_object_from_document(obj))
+
+        return to_return
+
+    @staticmethod
+    def get_all_required(permission):
+        all_data = RequiredData.get_all(permission)
+        to_return = []
+
+        for obj in all_data:
+            if obj.required:
+                to_return.append(obj)
+
+        return to_return
+                
     def remove(self):
         return mongo.db.required_data.delete_one({'_id': self._id})
 
