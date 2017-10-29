@@ -3,60 +3,58 @@
 from app.extensions import mongo
 
 from app.models.helpers import DuplicateException, UserNotFoundException, DataNotFound, DataWrongType
-from app.models.required_data import get_data
 
 from pydoc import locate
 
-def add_user(email, permissions = []):
-    """ This method creates and saves a new user """
+class User():
+    email = ''
+    permissions = []
+    data = {}
 
-    new_user = {}
+    def __init__(self,
+                 email = '',
+                 data = {},
+                 permissions = [],
+                 _id = -1):
+        self.email = email
+        self.data = data
+        self._id = _id
 
-    test_exists = mongo.db.users.find_one({'email': email})
+    @staticmethod
+    def generate_object_from_document(from_db):
+        if not from_db:
+            return None
 
-    if test_exists:
-        raise DuplicateException('A user with this email already exists')
+        new_user = User(from_db['email'],
+                        from_db['data'],
+                        from_db['permissions'],
+                        from_db['_id'])
 
-    new_user['email'] = email
-    new_user['permissions'] = permissions
-    new_user['data'] = {}
+        return new_user
 
-    return mongo.db.users.insert_one(new_user)
+    @staticmethod
+    def query_email(e):
+        from_db = mongo.db.users.find_one({'email': e})
 
-def get_user_id(i):
-    """ This method returns a user object by id """
+        return User.generate_object_from_document(from_db)
 
-    return mongo.db.users.find_one({'_id': i})
+    @staticmethod
+    def query_id(i):
+        from_db = mongo.db.users.find_on({'_id': i})
 
-def get_user_email(e):
-    """ This method returns a user object by email """
+        return User.generate_object_from_document(from_obj)
 
-    return mongo.db.users.find_one({'email': e})
+    def remove(self):
+        return mongo.db.users.delete_one({'_id': self._id})
 
-def update_data_id(name, data, i):
-    """ This, given a data name and data to update, and a user id, will update the data with the new data for the specific user id """
-    
-    user = get_user_id(i)
+    def update(self):
+        return mongodb.users.update_one({'_id': self._id}, {'$set': self.__dict__})
 
-    if not user:
-        raise UserNotFoundException('User lookup by id failed')
+    def insert(self):
+        to_insert = self.__dict__
+        to_insert.pop('_id', None)
 
-    for permission in user['permissions_applicable']:
-        found = False
+        if User.query_email(self.email):
+            raise DuplicateException('A user with this email already exists')
 
-        if is_required(name, permission):
-            found = True
-
-    if not found:
-        raise DataNotFound('This data is not in the data database')
-
-    if not type(data) == locate(get_data(name)['type']):
-        raise DataWrongType('This data is of the wrong type')
-
-    user['data'][name] = data
-        
-    return mongo.db.users.update_one({'_id': i}, user)
-    
-
-    
-
+        return mongo.db.users.insert_one(to_insert)
