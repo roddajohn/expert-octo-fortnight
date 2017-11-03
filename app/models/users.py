@@ -20,6 +20,7 @@ class User():
                  _id = -1):
         self.email = email
         self.data = data
+        self.permissions = permissions
         self._id = _id
 
     @staticmethod
@@ -42,15 +43,15 @@ class User():
 
     @staticmethod
     def query_id(i):
-        from_db = mongo.db.users.find_on({'_id': i})
+        from_db = mongo.db.users.find_one({'_id': i})
 
-        return User.generate_object_from_document(from_obj)
+        return User.generate_object_from_document(from_db)
 
     def remove(self):
         return mongo.db.users.delete_one({'_id': self._id})
 
     def update(self):
-        return mongodb.users.update_one({'_id': self._id}, {'$set': self.__dict__})
+        return mongo.db.users.update_one({'_id': self._id}, {'$set': self.__dict__})
 
     def insert(self):
         to_insert = self.__dict__
