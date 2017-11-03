@@ -19,3 +19,7 @@ class DataWrongType(Exception):
 
 class UserLacksPermission(Exception):
     """ Exception when a user is adding data to a piece of required data which is not for the user """
+
+def remove_id(obj):
+    obj.pop('_id')
+    return obj
