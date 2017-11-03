@@ -2,7 +2,9 @@
 
 from app.extensions import mongo
 
-from app.models.helpers import DuplicateException, UserNotFoundException, DataNotFound, DataWrongType
+from app.models.helpers import DuplicateException, DataNotFound, DataWrongType, UserLacksPermission
+
+from app.models.required_data import RequiredData
 
 from pydoc import locate
 
@@ -58,3 +60,26 @@ class User():
             raise DuplicateException('A user with this email already exists')
 
         return mongo.db.users.insert_one(to_insert)
+
+    def set_data(self, name, value):
+        required_data = RequiredData.query_name(name)
+
+        if not required_data:
+            raise DataNotFound('Data is not found with this name')
+
+        if not type(value) is locate(required_data['type']):
+            raise DataWrongType('Data is of the wrong type for this piece of data')
+
+        valid = False
+        for p in required_data['permissions_applicable']:
+            if p in self.permissions:
+                valid = True
+
+        if not valid:
+            raise UserLacksPermission('This user does not have a permission in common with the permissions that this required data requires')
+
+        self.data[name] = value
+
+        return True            
+
+        

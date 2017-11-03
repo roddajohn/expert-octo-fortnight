@@ -15,6 +15,7 @@ class RequiredData():
     required = None
     user_input = None
     permissions_applicable = []
+    visibility = []
 
     def __init__(self,
                  name = '',
@@ -23,6 +24,7 @@ class RequiredData():
                  required = None,
                  user_input = None,
                  permissions_applicable = [],
+                 visibility = [],
                  _id = -1):
         self.name = name
         self.display_name = display_name
@@ -30,6 +32,7 @@ class RequiredData():
         self.required = required
         self.user_input = user_input
         self.permissions_applicable = permissions_applicable
+        self.visibility = visibility
         self._id = _id
 
     @staticmethod
@@ -43,6 +46,7 @@ class RequiredData():
                                          from_db['required'],
                                          from_db['user_input'],
                                          from_db['permissions_applicable'],
+                                         from_db['visibility'],
                                          from_db['_id'])
 
         return new_required_data        
