@@ -68,11 +68,11 @@ class User():
         if not required_data:
             raise DataNotFound('Data is not found with this name')
 
-        if not type(value) is locate(required_data['type']):
+        if not type(value) is locate(required_data.type):
             raise DataWrongType('Data is of the wrong type for this piece of data')
 
         valid = False
-        for p in required_data['permissions_applicable']:
+        for p in required_data.permissions_applicable:
             if p in self.permissions:
                 valid = True
 

@@ -17,9 +17,9 @@ def load_user():
     If session does not contain id, sets g.user to None
     """
     
-    user = None
+    #user = None
     
-    g.user = user
+    #g.user = user
 
 def require_login(f):
     """ require_login(f)
