@@ -5,9 +5,6 @@ python:
 
 install:
   make setup
-
-before_script:
-  ./manage.py createdb
   
 script:
   make test
