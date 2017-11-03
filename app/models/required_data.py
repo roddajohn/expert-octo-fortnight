@@ -65,11 +65,11 @@ class RequiredData():
         return RequiredData.generate_object_from_document(from_db)
 
     @staticmethod
-    def get_all(permission):
+    def get_all(permission = ''):
         to_return = []
 
         for obj in mongo.db.required_data.find():
-            if permission in obj['permissions_applicable']:
+            if permission == '' or permission in obj['permissions_applicable']:
                 to_return.append(RequiredData.generate_object_from_document(obj))
 
         return to_return
