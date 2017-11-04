@@ -22,7 +22,7 @@ def _factory(partial_module_string, url_prefix):
 # The blueprints -- each is instantiated using the _facory() method
 auth_mod = _factory('auth.controller', '/auth')
 public_mod = _factory('public.controller', '/')
-api_mod = _factory('api.controller', '/api')
+required_data_api_mod = _factory('api.required_data.controller', '/api')
 
 all_blueprints = (auth_mod, public_mod, api_mod)
 """ List of all blueprints (all have been instantiated through the factory function) """

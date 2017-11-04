@@ -1,4 +1,4 @@
-from app.blueprints import api_mod
+from app.blueprints import required_data_api_mod
 
 from app.models.required_data import RequiredData
 from app.models.users import User
@@ -12,7 +12,7 @@ LOG = logging.getLogger(__name__)
 
 ### REQUIRED_DATA API ###
 
-@api_mod.route('/data', methods = ['GET'])
+@required_data_api_mod.route('/data', methods = ['GET'])
 def get_data():
     permission = request.args['permission'] if 'permission' in request.args else ''
     required = True if 'required' in request.args and request.args['required'] == 'True' else False
@@ -25,7 +25,7 @@ def get_data():
 
     return jsonify(to_return)
 
-@api_mod.route('/data/<string:name>', methods = ['GET'])
+@required_data_api_mod.route('/data/<string:name>', methods = ['GET'])
 def get_data_name(name = ''):
     data = RequiredData.query_name(name)
 
