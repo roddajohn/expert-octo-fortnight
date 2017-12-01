@@ -6,8 +6,6 @@ import app as app_root
 from app.blueprints import all_blueprints
 from app.extensions import mail, mongo
 
-import app.core.authentication
-
 from flask import Flask
 
 APP_ROOT_FOLDER = os.path.abspath(os.path.dirname(app_root.__file__))
