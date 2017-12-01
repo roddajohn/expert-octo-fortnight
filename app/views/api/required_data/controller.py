@@ -5,6 +5,8 @@ from app.models.users import User
 from app.models.helpers import remove_id
 from app.models.required_data import required_args
 
+from app.views.api.helpers import api, status_success
+
 from flask import request, jsonify, abort
 
 import logging
@@ -14,6 +16,7 @@ LOG = logging.getLogger(__name__)
 ### REQUIRED_DATA API ###
 
 @required_data_api_mod.route('', methods = ['GET'])
+@api
 def get_data():
     permission = request.args['permission'] if 'permission' in request.args else ''
     required = True if 'required' in request.args and request.args['required'] == 'True' else False
@@ -22,13 +25,14 @@ def get_data():
 
     to_return = [remove_id(data.__dict__) for data in to_return]
 
-    return jsonify(to_return)
+    return to_return
 
 @required_data_api_mod.route('/<string:name>', methods = ['GET'])
+@api
 def get_data_name(name = ''):
     data = RequiredData.query_name(name)
 
-    return jsonify(remove_id(data.__dict__))
+    return remove_id(data.__dict__) if data else {} 
 
 @required_data_api_mod.route('', methods = ['PUT'])
 def insert_new_data():
@@ -47,7 +51,7 @@ def insert_new_data():
 
     result = r.insert()
 
-    return jsonify({'result': 'success'}) if result.acknowledged else jsonify({'result': 'error'})                
+    return status_success(result.acknowledged)
         
     
     
