@@ -8,6 +8,8 @@ from app.extensions import mongo
 
 from app.models.helpers import DuplicateException
 
+required_args = ['name', 'display_name', 'type', 'required', 'user_input', 'permissions_applicable', 'visibility']
+
 class RequiredData():
     name = ''
     display_name = ''
