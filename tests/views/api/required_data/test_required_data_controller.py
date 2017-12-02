@@ -1,0 +1,76 @@
+""" Tests the required_data controller file
+
+app/views/api/required_data/controller.py """
+
+from flask import current_app, jsonify
+from app.extensions import mongo
+
+from app.models.required_data import RequiredData
+
+from tests.helpers import insert_testing_required_data, remove_testing_data
+
+import json
+
+def test_get_data():
+    """ Tests / """
+
+    response = current_app.test_client().get('/api/required_data')
+    
+    assert '200 OK' == response.status
+
+    response_data = json.loads(response.data)
+
+    required_data = mongo.db.required_data.find()
+    
+
+    for data in required_data:
+        data.pop('_id')
+        
+        found = False
+        for d in response_data:
+            if data == d:
+                found = True
+        assert found
+
+def test_get_data_name():
+    name = insert_testing_required_data()
+    
+    response = current_app.test_client().get('/api/required_data/' + name)
+
+    original_obj = RequiredData.query_name(name)
+
+    remove_testing_data()
+    
+    obj = original_obj.__dict__
+
+    obj.pop('_id')
+
+    assert '200 OK' == response.status
+
+    assert json.loads(response.data) == obj
+
+def test_insert_new_data():
+    data_dict = {'name': 'testing_data',
+                 'display_name': 'TESTING_DATA',
+                 'type': 'int',
+                 'required': 'False',
+                 'user_input': 'False',
+                 'permissions_applicable': 'student,administrator',
+                 'visibility': 'student,administrator'}
+    
+    response = current_app.test_client().put('/api/required_data', data = json.dumps(data_dict), content_type = 'application/json')
+
+    assert '200 OK' == response.status
+
+    inserted_data = RequiredData.query_name('testing_data')
+
+    assert inserted_data is not None
+
+    remove_testing_data()
+
+    response = current_app.test_client().put('/api/required_data', data = json.dumps({}), content_type = 'application/json')
+
+    assert '500 INTERNAL SERVER ERROR' == response.status
+    
+    
+    

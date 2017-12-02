@@ -37,17 +37,18 @@ def get_data_name(name = ''):
 @required_data_api_mod.route('', methods = ['PUT'])
 def insert_new_data():
     for arg in required_args:
-        if not arg in request.args:
-            LOG.error(str(request.args))
+        if not arg in request.json:
+            LOG.error(str(list(request.json)))
+            LOG.error(str(arg))
             abort(500)
 
-    r = RequiredData(name = request.args['name'],
-                     display_name = request.args['display_name'],
-                     type = request.args['type'],
-                     required = bool(request.args['required']),
-                     user_input = bool(request.args['user_input']),
-                     permissions_applicable = request.args['permissions_applicable'].split(','),
-                     visibility = request.args['visibility'].split(','))
+    r = RequiredData(name = request.json['name'],
+                     display_name = request.json['display_name'],
+                     t = request.json['type'],
+                     required = bool(request.json['required']),
+                     user_input = bool(request.json['user_input']),
+                     permissions_applicable = request.json['permissions_applicable'].split(','),
+                     visibility = request.json['visibility'].split(','))
 
     result = r.insert()
 
