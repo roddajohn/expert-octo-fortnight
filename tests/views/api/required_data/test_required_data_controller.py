@@ -72,7 +72,7 @@ def test_insert_new_data():
 
     assert '500 INTERNAL SERVER ERROR' == response.status
 
-def test_update_required_data(name = ''):
+def test_update_required_data():
     new_data = insert_testing_required_data()
     
     response = current_app.test_client().put('/api/required_data/testing_data', data = json.dumps({'name': 'blah', 'type': 'str'}), content_type = 'application/json')
@@ -92,10 +92,21 @@ def test_update_required_data(name = ''):
 
     assert '500 INTERNAL SERVER ERROR' == response.status
 
-    new_response = current_app.test_client().put('/api/required_data/testing_data', data = json.dumps({'name': 'blah', 'type': 'str', 'lmao': 'blahh'}), content_type = 'application/json')
+    new_response = current_app.test_client().put('/api/required_data/testing_data', data = json.dumps({'lmao': 'blahh'}), content_type = 'application/json')
 
     assert '500 INTERNAL SERVER ERROR' == new_response.status
 
+def test_removing_required_data():
+    response = current_app.test_client().delete('/api/required_data/testing_data')
+
+    assert '200 OK' == response.status
+
+    response = current_app.test_client().delete('/api/required_data/this_doesnt_exist')
+
+    assert '500 INTERNAL SERVER ERROR' == response.status
+
+    # For good measure
+    
     remove_testing_data('blah')
     remove_testing_data()
     
