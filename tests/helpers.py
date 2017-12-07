@@ -21,11 +21,12 @@ def insert_testing_required_data(name = original_name):
 
 def remove_testing_data(name = original_name):
     original_obj = RequiredData.query_name(name)
-    
-    result = original_obj.remove()
 
-    assert result.acknowledged
-    assert result.deleted_count == 1
+    if original_obj:
+        result = original_obj.remove()
+
+        assert result.acknowledged
+        assert result.deleted_count == 1
 
 
 

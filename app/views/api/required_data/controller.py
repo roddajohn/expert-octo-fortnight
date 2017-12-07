@@ -71,6 +71,18 @@ def update_required_data(name = ''):
 
     return status_success(True)
 
+@required_data_api_mod.route('/<string:name>', methods = ['DELETE'])
+def delete_required_data(name = ''):
+    r = RequiredData.query_name(name)
+
+    if not r:
+        abort(500)
+
+    r.remove()
+
+    return status_success(True)
+    
+
     
     
     

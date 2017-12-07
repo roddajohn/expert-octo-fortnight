@@ -92,6 +92,11 @@ def test_update_required_data(name = ''):
 
     assert '500 INTERNAL SERVER ERROR' == response.status
 
+    new_response = current_app.test_client().put('/api/required_data/testing_data', data = json.dumps({'name': 'blah', 'type': 'str', 'lmao': 'blahh'}), content_type = 'application/json')
+
+    assert '500 INTERNAL SERVER ERROR' == new_response.status
+
+    remove_testing_data('blah')
     remove_testing_data()
     
     
