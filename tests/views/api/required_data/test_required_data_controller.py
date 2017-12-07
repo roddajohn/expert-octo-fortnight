@@ -58,7 +58,7 @@ def test_insert_new_data():
                  'permissions_applicable': 'student,administrator',
                  'visibility': 'student,administrator'}
     
-    response = current_app.test_client().put('/api/required_data', data = json.dumps(data_dict), content_type = 'application/json')
+    response = current_app.test_client().post('/api/required_data', data = json.dumps(data_dict), content_type = 'application/json')
 
     assert '200 OK' == response.status
 
@@ -68,9 +68,30 @@ def test_insert_new_data():
 
     remove_testing_data()
 
-    response = current_app.test_client().put('/api/required_data', data = json.dumps({}), content_type = 'application/json')
+    response = current_app.test_client().post('/api/required_data', data = json.dumps({}), content_type = 'application/json')
 
     assert '500 INTERNAL SERVER ERROR' == response.status
+
+def test_update_required_data(name = ''):
+    new_data = insert_testing_required_data()
     
+    response = current_app.test_client().put('/api/required_data/testing_data', data = json.dumps({'name': 'blah', 'type': 'str'}), content_type = 'application/json')
+
+    assert '200 OK' == response.status
+
+    inserted_data = RequiredData.query_name('blah')
+
+    assert inserted_data.name == 'blah'
+    assert inserted_data.type == 'str'
+
+    inserted_data.name = 'testing_data'
+    inserted_data.t = 'str'
+    inserted_data.update()
+
+    response = current_app.test_client().put('/api/required_data/this_doesnt_exist', data = json.dumps({'name': 'blah', 'type': 'str'}), content_type = 'application/json')
+
+    assert '500 INTERNAL SERVER ERROR' == response.status
+
+    remove_testing_data()
     
     

@@ -34,11 +34,10 @@ def get_data_name(name = ''):
 
     return remove_id(data.__dict__) if data else {} 
 
-@required_data_api_mod.route('', methods = ['PUT'])
+@required_data_api_mod.route('', methods = ['POST'])
 def insert_new_data():
     for arg in required_args:
         if not arg in request.json:
-            LOG.error(str(list(request.json)))
             LOG.error(str(arg))
             abort(500)
 
@@ -54,9 +53,25 @@ def insert_new_data():
 
     return status_success(result.acknowledged)
         
-    
-    
+@required_data_api_mod.route('/<string:name>', methods = ['PUT'])
+def update_required_data(name = ''):
+    r = RequiredData.query_name(name)
 
+    if not r:
+        abort(500)
+
+    for arg in request.json:
+        try:
+            setattr(r, arg, type(getattr(r, arg))(request.json[arg]))
+        except:
+            LOG.error('Executed the try except statement')
+            abort(500)
+
+    r.update()
+
+    return status_success(True)
+
+    
     
     
     
