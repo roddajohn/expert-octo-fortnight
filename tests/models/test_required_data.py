@@ -5,21 +5,13 @@ import pytest
 from app.models.required_data import RequiredData
 from app.models.helpers import DuplicateException
 
+from tests.helpers import insert_testing_required_data, remove_testing_data
+
 def test_insert():
     """ Tests the RequiredData insert method """
+
+    insert_testing_required_data()
     
-    new = RequiredData('testing_data',
-                       'TESTING_DATA',
-                       'int',
-                       False,
-                       False,
-                       ['student'])
-
-    returned = new.insert()
-
-    assert returned.acknowledged
-    assert returned.inserted_id > -1
-
 def test_query_id_name():
     obj_id = RequiredData.query_name('testing_data')._id
 
@@ -46,12 +38,7 @@ def test_duplicate():
         returned = new.insert()
         
 def test_remove():
-    r = RequiredData.query_name('testing_data')
-
-    result = r.remove()
-
-    assert result.acknowledged
-    assert result.deleted_count == 1
+    remove_testing_data()
 
 
 def test_get_all():

@@ -34,28 +34,56 @@ def get_data_name(name = ''):
 
     return remove_id(data.__dict__) if data else {} 
 
-@required_data_api_mod.route('', methods = ['PUT'])
+@required_data_api_mod.route('', methods = ['POST'])
 def insert_new_data():
     for arg in required_args:
-        if not arg in request.args:
-            LOG.error(str(request.args))
+        if not arg in request.json:
+            LOG.error(str(arg))
             abort(500)
 
-    r = RequiredData(name = request.args['name'],
-                     display_name = request.args['display_name'],
-                     type = request.args['type'],
-                     required = bool(request.args['required']),
-                     user_input = bool(request.args['user_input']),
-                     permissions_applicable = request.args['permissions_applicable'].split(','),
-                     visibility = request.args['visibility'].split(','))
+    r = RequiredData(name = request.json['name'],
+                     display_name = request.json['display_name'],
+                     t = request.json['type'],
+                     required = bool(request.json['required']),
+                     user_input = bool(request.json['user_input']),
+                     permissions_applicable = request.json['permissions_applicable'].split(','),
+                     visibility = request.json['visibility'].split(','))
 
     result = r.insert()
 
     return status_success(result.acknowledged)
         
-    
+@required_data_api_mod.route('/<string:name>', methods = ['PUT'])
+def update_required_data(name = ''):
+    r = RequiredData.query_name(name)
+
+    if not r:
+        abort(500)
+
+    for arg in request.json:
+        try:
+            setattr(r, arg, type(getattr(r, arg))(request.json[arg]))
+        except:
+            LOG.error('Executed the try except statement')
+            abort(500)
+
+    r.update()
+
+    return status_success(True)
+
+@required_data_api_mod.route('/<string:name>', methods = ['DELETE'])
+def delete_required_data(name = ''):
+    r = RequiredData.query_name(name)
+
+    if not r:
+        abort(500)
+
+    r.remove()
+
+    return status_success(True)
     
 
+    
     
     
     
