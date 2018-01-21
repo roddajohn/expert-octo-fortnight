@@ -15,12 +15,12 @@ class CeleryConfig(HardCoded):
     
     # TODO
 
-class MongoConfig(CeleryConfig):
+class SQLConfig(CeleryConfig):
     """ Default Mongo Configuration """
 
     MONGO_DBNAME = 'test'
     
-class Config(MongoConfig):
+class Config(SQLConfig):
     """ Flask Configuration global to all environments """
 
     DEBUG = True
@@ -41,5 +41,3 @@ class Testing(Config):
 class Production(Config):
     DEBUG = False
     MAIL_SUPPRESS_SEND = False
-
-    MONGO_DBNAME = 'production'
