@@ -11,6 +11,8 @@ COMMANDS:
 USAGE:
     manage.py devserver [-p NUM] [-l DIR] [--config_prod]
     manage.py shell [--config_prod]
+    manage.py createdb [--config_prod]
+    manage.py migratedb [--config_prod]
 
 OPTIONS:
     --config_prod         Load the production configurations instead of development
@@ -43,7 +45,7 @@ from sqlalchemy.ext.declarative import declarative_base
 # Updated
 # Application imports
 from app.application import create_app, get_config
-from app.extensions import mongo
+from app.extensions import db
 import app.models
 
 #from app.models.helpers import b
@@ -148,7 +150,82 @@ def shell():
     setup_logging('shell')
     app = create_app(parse_options())
     app.app_context().push()
-    Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False)
+    
+    Shell(make_context=lambda: dict(app=app, db=db)).run(no_ipython=False, no_bpython=False, )
+
+@command
+def migratedb():
+    """ Migrates the database 
+
+    It creates the app based on the flags passed into the script, thus the correct configuration is loaded
+    """
+    
+    config_class = parse_options()
+
+    if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
+        os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
+        
+    app = create_app(parse_options())
+
+    try:
+        with app.app_context():
+            v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+            
+            migration = config_class.SQLALCHEMY_MIGRATE_REPO + ('/versions/%03d_migration.py' % (v+1))
+            
+            tmp_module = imp.new_module('old_model')
+            old_model = api.create_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+            
+            exec(old_model, tmp_module.__dict__)
+            script = api.make_update_script_for_model(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, tmp_module.meta, db.metadata)
+            
+            open(migration, "wt").write(script)
+            api.upgrade(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+            
+            v = api.db_version(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+
+            print('INFORMATION: New migration saved as ' + migration)
+            print('INFORMATION: Current database version: ' + str(v))
+            
+    except InvalidRepositoryError:
+        print('ERROR: This database does not exist')
+
+
+@command
+def createdb():
+    """ Creates the database 
+
+    It creates the app based on the flags passed into the script, thus the correct configuration is loaded
+    """
+    
+    config_class = parse_options()
+
+    if not os.path.exists(config_class.SQLALCHEMY_DATABASE_LOCATION):
+        os.makedirs(config_class.SQLALCHEMY_DATABASE_LOCATION)
+        
+    app = create_app(parse_options())
+
+    try:
+        with app.app_context():
+            """engine = create_engine(config_class.SQLALCHEMY_DATABASE_URI, convert_unicode=True)
+            db_session = scoped_session(sessionmaker(autocommit=False,
+                                                     autoflush=False,
+                                                     bind=engine))
+            b.query = db_session.query_property()
+
+            import app.models
+
+            b.metadata.create_all(bind = engine)"""
+            db.create_all()
+            if not os.path.exists(config_class.SQLALCHEMY_MIGRATE_REPO):
+                api.create(config_class.SQLALCHEMY_MIGRATE_REPO, 'database repository')
+                api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO)
+            else:
+                api.version_control(config_class.SQLALCHEMY_DATABASE_URI, config_class.SQLALCHEMY_MIGRATE_REPO, api.version(config_class.SQLALCHEMY_MIGRATE_REPO))
+                
+    except DatabaseAlreadyControlledError:
+        print 'WARNING: This database already exists'
+        
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, lambda *_: sys.exit(0)) # Catches SIGINT and exits "theoretically" nicely
